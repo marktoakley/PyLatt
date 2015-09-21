@@ -3,8 +3,7 @@
 '''
 import unittest
 from lattice.moves import CubicLattice
-from lattice.lattice_structure import Lattice_Structure,\
-    Lattice_Structure_Factory
+from lattice.lattice_structure import LatticeStructure,LatticeStructureFactory
 
 class StructureTest(unittest.TestCase):
 
@@ -14,7 +13,7 @@ class StructureTest(unittest.TestCase):
                 [0,0,1],
                 [0,1,1],
                 [0,1,0]]
-        structure=Lattice_Structure(lattice,coords)
+        structure=LatticeStructure(lattice,coords)
         structure.make_contact_map()
         self.assertEqual(1,len(structure.map))
         self.assertEqual(0,len(structure.overlaps))
@@ -24,7 +23,7 @@ class StructureTest(unittest.TestCase):
             coords=[[0,0,0],
                     [0,0,1],
                     [0,0,0]]
-            structure=Lattice_Structure(lattice,coords)
+            structure=LatticeStructure(lattice,coords)
             structure.make_contact_map()
             self.assertEqual(0,len(structure.overlaps))
 
@@ -32,11 +31,11 @@ class FactoryTest(unittest.TestCase):
     
     def test_random(self):
         #No tests on output. Just run to ensure no exceptions
-        factory=Lattice_Structure_Factory("HHHPPPHHP",CubicLattice())
+        factory=LatticeStructureFactory("HHHPPPHHP",CubicLattice())
         structure=factory.random()
         
     def test_avoid(self):
-        factory=Lattice_Structure_Factory(("H"*100),CubicLattice())
+        factory=LatticeStructureFactory(("H"*100),CubicLattice())
         structure=factory.random_avoid()
         self.assertEqual(0,len(structure.overlaps))
         
