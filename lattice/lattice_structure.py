@@ -11,8 +11,9 @@ class Lattice_Structure:
     
     def __init__(self,lattice,coords):
         self.lattice = lattice
-        self.coords=coords
+        self.coords=np.array(coords)
         self.natoms=len(coords)
+        self.map=[]
         self.overlaps=[]
             
     def make_contact_map(self):
@@ -56,10 +57,10 @@ class Lattice_Structure_Factory:
             for i in range(1,self.natoms):
                 next_move = []
                 for row in self.lattice.moves:
-                    if  not structure.occupied(row+coords[i-1]):
-                        next_move.append(row+coords[i-1])
+                    if  not structure.occupied(row+structure.coords[i-1]):
+                        next_move.append(row+structure.coords[i-1])
                 my_move=random.choice(next_move)
-                coords[i] = my_move
+                structure.coords[i] = my_move
             structure.make_contact_map()
             return structure
                 
