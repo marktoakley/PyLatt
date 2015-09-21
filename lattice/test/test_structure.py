@@ -2,7 +2,7 @@
 @author: Mark Oakley
 '''
 import unittest
-from lattice.moves import CubicLattice
+from lattice.moves import CubicLattice, SquareLattice
 from lattice.lattice_structure import LatticeStructure,LatticeStructureFactory
 
 class StructureTest(unittest.TestCase):
@@ -36,6 +36,11 @@ class FactoryTest(unittest.TestCase):
         
     def test_avoid(self):
         factory=LatticeStructureFactory(("H"*100),CubicLattice())
+        structure=factory.random_avoid()
+        self.assertEqual(0,len(structure.overlaps))
+    
+    def test_trapping(self):
+        factory = LatticeStructureFactory(("H"*150),SquareLattice())
         structure=factory.random_avoid()
         self.assertEqual(0,len(structure.overlaps))
         
