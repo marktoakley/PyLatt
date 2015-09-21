@@ -30,9 +30,9 @@ class StructureTest(unittest.TestCase):
 class FactoryTest(unittest.TestCase):
     
     def test_random(self):
-        #No tests on output. Just run to ensure no exceptions
-        factory=LatticeStructureFactory("HHHPPPHHP",CubicLattice())
+        factory=LatticeStructureFactory("HHHPPPHHHP",CubicLattice())
         structure=factory.random()
+        self.assertEqual(10,structure.natoms)
         
     def test_avoid(self):
         factory=LatticeStructureFactory(("H"*100),CubicLattice())

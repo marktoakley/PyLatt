@@ -7,6 +7,8 @@ Created on 18 Sep 2015
 import numpy as np
 import random
 
+from moves import CubicLattice
+
 class LatticeStructure:
     '''Stores the coordinates and properties of lattice model proteins.
 
@@ -40,7 +42,7 @@ class LatticeStructure:
 class LatticeStructureFactory:
     '''Generate new LatticeStructures.'''
         
-    def __init__(self,sequence,lattice):
+    def __init__(self,sequence,lattice=CubicLattice()):
         self.sequence = sequence
         self.lattice = lattice
         self.natoms = len(self.sequence)
