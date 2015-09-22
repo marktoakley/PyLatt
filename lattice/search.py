@@ -8,7 +8,7 @@ class RandomSearch:
     def __init__(self, lattice, model):
         self.lattice = lattice
         self.model = model
-        self.factory = LatticeStructureFactory(len(self.model.natoms), self.lattice)
+        self.factory = LatticeStructureFactory(self.model.natoms, self.lattice)
         
     def run(self, steps):
         '''Perform a simple random search.

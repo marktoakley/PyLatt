@@ -5,7 +5,7 @@ A simple search on a 2D lattice using the HP potential.
 '''
 from lattice.model import HP
 from lattice.moves import SquareLattice
-from lattice.test.plotter import plot_2d
+from lattice.plotter import plot_2d
 from lattice.search import RandomSearch
 
 sequence = "PHPPHPHHHPHHPHHHHH"
