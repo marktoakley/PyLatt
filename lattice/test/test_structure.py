@@ -18,6 +18,16 @@ class StructureTest(unittest.TestCase):
         self.assertEqual(1,len(structure.map))
         self.assertEqual(0,len(structure.overlaps))
         
+    def test_free_moves(self):
+        lattice=CubicLattice()
+        coords=[[0,0,0],
+                [0,0,1],
+                [0,1,1],
+                [0,1,0]]
+        structure=LatticeStructure(lattice,coords)
+        structure.make_contact_map()
+        self.assertEqual(4,len(structure.free_moves(0)))
+        
         def test_overlap(self):
             lattice=CubicLattice()
             coords=[[0,0,0],

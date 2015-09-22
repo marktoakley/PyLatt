@@ -35,6 +35,14 @@ class LatticeStructure:
                     self.map.append([i,j])
         return self.map
     
+    def free_moves(self, index):
+        '''Return a list of unoccupied lattice points surrounding a residue.'''
+        moves = []
+        for row in self.lattice.get_moves(self.coords[index]):
+            if  not self.occupied(row+self.coords[index]):
+                moves.append(row+self.coords[index])
+        return moves
+        
     def occupied(self,point):
         '''Check whether a lattice point is occupied.'''
         return any(np.all(self.coords==point,axis=1))
