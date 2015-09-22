@@ -80,10 +80,7 @@ class LatticeStructureFactory:
             coords = np.zeros((self.natoms,3),dtype=int)
             structure = LatticeStructure(self.lattice,coords)
             for i in range(1,self.natoms):
-                next_move = []
-                for row in self.lattice.get_moves(structure.coords[i-1]):
-                    if  not structure.occupied(row+structure.coords[i-1]):
-                        next_move.append(row+structure.coords[i-1])
+                next_move = structure.free_moves(i-1)
                 if len(next_move) == 0:
                     trapped = True
                     break
