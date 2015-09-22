@@ -5,10 +5,10 @@ from lattice.lattice_structure import LatticeStructureFactory
 
 class RandomSearch:
     '''Repeatedly generates random structures.'''
-    def __init__(self, lattice, potential):
+    def __init__(self, lattice, model):
         self.lattice = lattice
-        self.potential = potential
-        self.factory = LatticeStructureFactory(len(self.potential.isequence), self.lattice)
+        self.model = model
+        self.factory = LatticeStructureFactory(len(self.model.natoms), self.lattice)
         
     def run(self, steps):
         '''Perform a simple random search.
@@ -24,7 +24,7 @@ class RandomSearch:
         best_energy = 0
         for i in range (1, steps):
             structure=self.factory.random_avoid()
-            energy = self.potential.calculate_energy(structure)
+            energy = self.model.calculate_energy(structure)
             structure.energy = energy
             if energy < best_energy:
                 best_energy=energy
