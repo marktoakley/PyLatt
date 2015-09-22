@@ -30,17 +30,17 @@ class StructureTest(unittest.TestCase):
 class FactoryTest(unittest.TestCase):
     
     def test_random(self):
-        factory=LatticeStructureFactory("HHHPPPHHHP",CubicLattice())
+        factory=LatticeStructureFactory(10 ,CubicLattice())
         structure=factory.random()
         self.assertEqual(10,structure.natoms)
         
     def test_avoid(self):
-        factory=LatticeStructureFactory(("H"*100),CubicLattice())
+        factory=LatticeStructureFactory(100, CubicLattice())
         structure=factory.random_avoid()
         self.assertEqual(0,len(structure.overlaps))
     
     def test_trapping(self):
-        factory = LatticeStructureFactory(("H"*150),SquareLattice())
+        factory = LatticeStructureFactory(150, SquareLattice())
         structure=factory.random_avoid()
         self.assertEqual(0,len(structure.overlaps))
         

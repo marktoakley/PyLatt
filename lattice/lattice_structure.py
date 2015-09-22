@@ -42,16 +42,15 @@ class LatticeStructure:
 class LatticeStructureFactory:
     '''Generate new LatticeStructures.'''
         
-    def __init__(self,sequence,lattice=CubicLattice()):
-        self.sequence = sequence
+    def __init__(self, natoms, lattice=CubicLattice()):
         self.lattice = lattice
-        self.natoms = len(self.sequence)
+        self.natoms = natoms
             
     def random(self):
         '''Generate a random lattice structure.
         
         This is not self-avoiding and can have overlapping beads.
-        Uding random_avoid is almost always a better choice.'''
+        Using random_avoid is almost always a better choice.'''
         coords = np.zeros((self.natoms,3),dtype=int)
         for i in range(1,self.natoms):
             coords[i] = np.add(coords[i-1],random.choice(self.lattice.get_moves(coords[i-1])))
