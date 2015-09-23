@@ -3,10 +3,10 @@ A simple search on a 2D lattice using the HP potential.
 
 @author: Mark Oakley
 '''
-from lattice.model import HP
-from lattice.moves import SquareLattice
-from lattice.plotter import plot_2d
-from lattice.search import RandomSearch
+from pylatt.model import HP
+from pylatt.lattice import SquareLattice
+from pylatt.plotter import plot_2d
+from pylatt.search import RandomSearch
 
 sequence = "PHPPHPHHHPHHPHHHHH"
 model = HP(sequence)

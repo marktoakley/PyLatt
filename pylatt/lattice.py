@@ -4,18 +4,18 @@
 import numpy as np
 from abc import ABCMeta, abstractmethod
 
-class LatticeMoves():
+class Lattice():
     '''Abstract superclass for lattices.'''
     __metaclass__ = ABCMeta
     
     @abstractmethod
     def get_moves(self,point): pass
-    '''Get a list of the moves accessible from a given lattice point.
+    '''Get a list of the moves accessible from a given pylatt point.
     Parameters:
     point: '''
 
-class CubicLattice(LatticeMoves):
-    '''A 6-coordinate cubic lattice.'''
+class CubicLattice(Lattice):
+    '''A 6-coordinate cubic pylatt.'''
     moves=np.array([[0,0,1],
                     [0,0,-1],
                     [0,1,0],
@@ -27,8 +27,8 @@ class CubicLattice(LatticeMoves):
     def get_moves(self, point):
         return self.moves
 
-class SquareLattice(LatticeMoves):
-    '''A 4-coordinate square lattice.
+class SquareLattice(Lattice):
+    '''A 4-coordinate square pylatt.
     This is two dimensional, with moves only along the x- and y-axes.'''
     moves=np.array([[1,0,0],
                     [-1,0,0],
@@ -39,8 +39,8 @@ class SquareLattice(LatticeMoves):
     def get_moves(self, point):
         return self.moves
 
-class BCCLattice(LatticeMoves):
-    '''An 8-coordinate body-centred cubic lattice.'''
+class BCCLattice(Lattice):
+    '''An 8-coordinate body-centred cubic pylatt.'''
     moves=np.array([[1,1,1],
                     [1,1,-1],
                     [1,-1,1],
@@ -54,8 +54,8 @@ class BCCLattice(LatticeMoves):
     def get_moves(self, point):
         return self.moves
     
-class FCCLattice(LatticeMoves):
-    '''A 12-coordinate face-centered cubic lattice.'''
+class FCCLattice(Lattice):
+    '''A 12-coordinate face-centered cubic pylatt.'''
     moves=np.array([[1,1,0],
                     [1,-1,0],
                     [1,0,1],
@@ -73,8 +73,8 @@ class FCCLattice(LatticeMoves):
     def get_moves(self, point):
         return self.moves
     
-class DiamondLattice(LatticeMoves):
-    '''A 4-coordinate diamond lattice.'''
+class DiamondLattice(Lattice):
+    '''A 4-coordinate diamond pylatt.'''
     even_moves=np.array([[1,1,1],
                          [1,-1,-1],
                          [-1,-1,1],

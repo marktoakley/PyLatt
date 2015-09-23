@@ -3,10 +3,10 @@ A search on a face-centered cubic lattice using the MJ potential.
 
 @author: Mark Oakley
 '''
-from lattice.model import MJ
-from lattice.moves import *
-from lattice.plotter import plot_3d
-from lattice.search import RandomSearch
+from pylatt.model import MJ
+from pylatt.lattice import *
+from pylatt.plotter import plot_3d
+from pylatt.search import RandomSearch
 
 sequence = "LMVGGVVIA"
 model = MJ(sequence)

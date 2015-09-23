@@ -5,5 +5,5 @@ setup(
     version='0',
     author='Mark Oakley',
     author_email='marktoakley@hotmail.com',
-    packages=['lattice'],
+    packages=['pylatt'],
 )

@@ -2,8 +2,8 @@
 @author: Mark Oakley
 '''
 import unittest
-from lattice.moves import CubicLattice, SquareLattice
-from lattice.lattice_structure import LatticeStructure,LatticeStructureFactory
+from pylatt.lattice import CubicLattice, SquareLattice
+from pylatt.lattice_structure import LatticeStructure,LatticeStructureFactory
 
 class StructureTest(unittest.TestCase):
 

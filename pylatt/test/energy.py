@@ -3,9 +3,9 @@
 '''
 
 import unittest
-from lattice.model import HP
-from lattice.lattice_structure import LatticeStructure
-from lattice.moves import CubicLattice
+from pylatt.model import HP
+from pylatt.lattice_structure import LatticeStructure
+from pylatt.lattice import CubicLattice
 
 class HPPotentialTest(unittest.TestCase):
     def setUp(self):

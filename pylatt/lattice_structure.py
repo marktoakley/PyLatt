@@ -7,10 +7,10 @@ Created on 18 Sep 2015
 import numpy as np
 import random
 
-from moves import CubicLattice
+from pylatt.lattice import CubicLattice
 
 class LatticeStructure:
-    '''Stores the coordinates and properties of lattice model proteins.
+    '''Stores the coordinates and properties of pylatt model proteins.
 
     To generate new LatticeStructures, use the LatticeStructureFactory
     rather than the constructor in this class.'''
@@ -36,7 +36,7 @@ class LatticeStructure:
         return self.map
     
     def free_moves(self, index):
-        '''Return a list of unoccupied lattice points surrounding a residue.'''
+        '''Return a list of unoccupied pylatt points surrounding a residue.'''
         moves = []
         for row in self.lattice.get_moves(self.coords[index]):
             if  not self.occupied(row+self.coords[index]):
@@ -44,7 +44,7 @@ class LatticeStructure:
         return moves
         
     def occupied(self,point):
-        '''Check whether a lattice point is occupied.'''
+        '''Check whether a pylatt point is occupied.'''
         return any(np.all(self.coords==point,axis=1))
     
 class LatticeStructureFactory:
@@ -55,7 +55,7 @@ class LatticeStructureFactory:
         self.natoms = natoms
             
     def random(self):
-        '''Generate a random lattice structure.
+        '''Generate a random pylatt structure.
         
         This is not self-avoiding and can have overlapping beads.
         Using random_avoid is almost always a better choice.'''
@@ -67,7 +67,7 @@ class LatticeStructureFactory:
         return structure
         
     def random_avoid(self):
-        '''Generate a self-avoiding random lattice structure.
+        '''Generate a self-avoiding random pylatt structure.
         
         Notes
         -----

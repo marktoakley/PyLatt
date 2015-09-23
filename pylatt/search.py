@@ -1,7 +1,7 @@
 '''
 @author: Mark Oakley
 '''
-from lattice.lattice_structure import LatticeStructureFactory
+from pylatt.lattice_structure import LatticeStructureFactory
 
 class RandomSearch:
     '''Repeatedly generates random structures.'''
