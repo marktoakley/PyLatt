@@ -19,6 +19,7 @@ class LatticeStructure:
         self.lattice = lattice
         self.coords = np.array(coords)
         self.natoms = len(coords)
+        self.make_contact_map()
             
     def make_contact_map(self):
         '''Generate the contact map and overlap map for a protein structure.'''
