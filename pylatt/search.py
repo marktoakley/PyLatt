@@ -10,6 +10,9 @@ class RandomSearch:
         self.lattice = lattice
         self.model = model
         self.factory = LatticeStructureFactory(self.model.natoms, self.lattice)
+        self.step=0
+        self.best_structure = self.factory.random_avoid()
+        self.best_energy = self.model.calculate_energy(self.best_structure)
         
     def run(self, steps):
         '''Perform a simple random search.
@@ -22,16 +25,14 @@ class RandomSearch:
         -------
         the best structure found
         '''
-        best_energy = 0
-        for i in range (1, steps):
+        for self.step in range (self.step +1, self.step + steps + 1):
             structure=self.factory.random_avoid()
             energy = self.model.calculate_energy(structure)
             structure.energy = energy
-            if energy < best_energy:
-                best_energy=energy
-                best_structure = structure
-            #print i, energy, best_energy
-        return best_structure
+            if energy < self.best_energy:
+                self.best_energy=energy
+                self.best_structure = structure
+        return self.best_structure
     
 class MonteCarlo:
     '''Metropolis Monte Carlo (without the Metropolis test at the moment).'''
@@ -41,15 +42,18 @@ class MonteCarlo:
         self.last_structure = LatticeStructureFactory(self.model.natoms, self.lattice).random_avoid()
         self.model.calculate_energy(self.last_structure)
         self.best_structure = self.last_structure
+        self.best_energy = self.best_structure.energy
         self.mover = Reptator()
+        self.step = 0
         
     def run(self, steps):
-        for i in range(1, steps):
+        for self.step in range (self.step +1, self.step + steps + 1):
             structure = self.mover.move(self.last_structure)
             energy = self.model.calculate_energy(structure)
             if structure.energy < self.best_structure.energy:
                 self.best_structure = structure
+                self.best_energy = energy
             # Metropolis stuff goes here
-            #print i, energy, self.best_structure.energy
+            #print self.step, energy, self.best_structure.energy
             self.last_structure = structure
         return self.best_structure
