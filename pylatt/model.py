@@ -4,25 +4,8 @@ The two-colour hydrophobic-polar model.
 @author: Mark Oakley
 '''
 
-class HP:
-    '''The Hydrophobic Polar model.'''
+class Potential:
     
-    def __init__(self,sequence):
-        '''Set up the hydrophobic-polar model.
-        
-        The parameter sequence is a string of "H" and "P" characters
-        (e.g. "PPHHHPHHHP") denoting each residue as hydrophobic or polar.'''
-        self.pair_potential = [[-1,0],
-                               [0,0]]
-        self.sequence = sequence
-        self.natoms = len(sequence)
-        self.isequence = []
-        for c in list(sequence):
-            if c == 'H':
-                self.isequence.append(0)
-            elif c == 'P':
-                self.isequence.append(1)
-
     def calculate_energy(self,structure):
         '''Calculate the energy of a LatticeStructure.'''
         energy = 0
@@ -30,9 +13,27 @@ class HP:
         for contact in structure.contact_map:
             energy += self.pair_potential[self.isequence[contact[0]]][self.isequence[contact[1]]]
         structure.energy = energy
-        return energy
+        return energy    
+
+
+class HP(Potential):
+    '''The Hydrophobic Polar model.'''
     
-class MJ:
+    def __init__(self,sequence):
+        '''Set up the hydrophobic-polar model.
+        
+        The parameter sequence is a string of "H" and "P" characters
+        (e.g. "PPHHHPHHHP") denoting each residue as hydrophobic or polar.'''
+        self.labels="HP"
+        self.pair_potential = [[-1,0],
+                               [0,0]]
+        self.sequence = sequence
+        self.natoms = len(sequence)
+        self.isequence = []
+        for c in list(sequence):
+            self.isequence.append(self.labels.index(c))
+    
+class MJ(Potential):
     '''The Miyazawa-Jernigan potential (just the pairwise part for now).
     
     See:
@@ -65,12 +66,3 @@ class MJ:
         self.isequence = []
         for c in list(sequence):
             self.isequence.append(self.labels.index(c))
-        
-    def calculate_energy(self,structure):
-        '''Calculate the energy of a LatticeStructure.'''
-        energy = 0
-        structure.make_contact_map()
-        for contact in structure.contact_map:
-            energy += self.pair_potential[self.isequence[contact[0]]][self.isequence[contact[1]]]
-        structure.energy = energy
-        return energy
