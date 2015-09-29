@@ -30,7 +30,6 @@ class Reptator:
             next_move = structure.free_moves(move_res)
             if len(next_move) == 0:
                 trapped = True
-                break
         my_move = random.choice(next_move)
         if move_res == 0:
             coords[0] = my_move
