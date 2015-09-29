@@ -48,5 +48,15 @@ class MJPotentialTest(unittest.TestCase):
                                self.model.calculate_energy(structure),
                                delta = 0.001)
 
+class BadResidueTest(unittest.TestCase):
+    
+    def test_HP(self):
+        with self.assertRaises(ValueError):
+            self.model = HP("QWERTY")
+            
+    def test_MJ(self):
+        with self.assertRaises(ValueError):
+            self.model = MJ("AAGBA")
+
 if __name__ == "__main__":
     unittest.main()

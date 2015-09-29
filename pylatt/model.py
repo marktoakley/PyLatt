@@ -24,7 +24,11 @@ class Potential:
         self.natoms = len(sequence)
         self.isequence = []
         for c in list(sequence):
-            self.isequence.append(self.labels.index(c))
+            try:
+                self.isequence.append(self.labels.index(c))
+            except ValueError:
+                print "Unknown residue type: ",c
+                raise
 
 class HP(Potential):
     '''The Hydrophobic Polar model.'''
