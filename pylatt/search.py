@@ -1,6 +1,9 @@
 '''
 @author: Mark Oakley
 '''
+from math import exp
+import random
+
 from pylatt.lattice_structure import LatticeStructureFactory
 from pylatt.reptate import Reptator
 
@@ -35,7 +38,7 @@ class RandomSearch:
         return self.best_structure
     
 class MonteCarlo:
-    '''Metropolis Monte Carlo (without the Metropolis test at the moment).'''
+    '''Metropolis Monte Carlo.'''
     def __init__(self, lattice, model):
         self.lattice = lattice
         self.model = model
@@ -50,10 +53,13 @@ class MonteCarlo:
         for self.step in range (self.step +1, self.step + steps + 1):
             structure = self.mover.move(self.last_structure)
             energy = self.model.calculate_energy(structure)
+            #print self.step, structure.energy, self.last_structure.energy, self.best_structure.energy
             if structure.energy < self.best_structure.energy:
                 self.best_structure = structure
                 self.best_energy = energy
-            # Metropolis stuff goes here
-            #print self.step, energy, self.best_structure.energy
-            self.last_structure = structure
+            if random.random() < metropolis_probability(self.last_structure.energy, structure.energy):
+                self.last_structure = structure
         return self.best_structure
+    
+def metropolis_probability(e1, e2, r=1.0, t=1.0):
+    return min(exp(-((e2 - e1) / (r * t))), 1.)

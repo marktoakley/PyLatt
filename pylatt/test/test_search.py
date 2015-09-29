@@ -37,5 +37,11 @@ class MonteCarloTest(unittest.TestCase):
         energy2 = search.best_energy
         self.assertLessEqual(energy2, energy1)
         
+class MetropolisTest(unittest.TestCase):
+    
+    def test_metropolis(self):
+        self.assertAlmostEqual(0.368, metropolis_probability(1.0, 2.0), delta=0.001)
+        self.assertAlmostEqual(1.0, metropolis_probability(2.0, 1.0), delta=0.001)
+        
 if __name__ == "__main__":
     unittest.main()
