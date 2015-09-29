@@ -27,7 +27,7 @@ class HP:
         '''Calculate the energy of a LatticeStructure.'''
         energy = 0
         structure.make_contact_map()
-        for contact in structure.map:
+        for contact in structure.contact_map:
             energy += self.pair_potential[self.isequence[contact[0]]][self.isequence[contact[1]]]
         structure.energy = energy
         return energy
@@ -70,7 +70,7 @@ class MJ:
         '''Calculate the energy of a LatticeStructure.'''
         energy = 0
         structure.make_contact_map()
-        for contact in structure.map:
+        for contact in structure.contact_map:
             energy += self.pair_potential[self.isequence[contact[0]]][self.isequence[contact[1]]]
         structure.energy = energy
         return energy

@@ -15,8 +15,8 @@ class StructureTest(unittest.TestCase):
                 [0,1,0]]
         structure=LatticeStructure(lattice,coords)
         structure.make_contact_map()
-        self.assertEqual(1,len(structure.map))
-        self.assertEqual(0,len(structure.overlaps))
+        self.assertEqual(1,len(structure.contact_map))
+        self.assertEqual(0,len(structure.overlap_map))
         
     def test_free_moves(self):
         lattice=CubicLattice()
@@ -35,7 +35,7 @@ class StructureTest(unittest.TestCase):
                     [0,0,0]]
             structure=LatticeStructure(lattice,coords)
             structure.make_contact_map()
-            self.assertEqual(0,len(structure.overlaps))
+            self.assertEqual(0,len(structure.overlap_map))
 
 class FactoryTest(unittest.TestCase):
     
@@ -47,12 +47,12 @@ class FactoryTest(unittest.TestCase):
     def test_avoid(self):
         factory=LatticeStructureFactory(100, CubicLattice())
         structure=factory.random_avoid()
-        self.assertEqual(0,len(structure.overlaps))
+        self.assertEqual(0,len(structure.overlap_map))
     
     def test_trapping(self):
         factory = LatticeStructureFactory(150, SquareLattice())
         structure=factory.random_avoid()
-        self.assertEqual(0,len(structure.overlaps))
+        self.assertEqual(0,len(structure.overlap_map))
         
         
 if __name__ == "__main__":

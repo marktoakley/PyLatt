@@ -22,19 +22,19 @@ class LatticeStructure:
         self.make_contact_map()
             
     def make_contact_map(self):
-        '''Generate the contact map and overlap map for a protein structure.'''
-        self.map = []
-        self.overlaps = []
+        '''Generate the contact contact_map and overlap contact_map for a protein structure.'''
+        self.contact_map = []
+        self.overlap_map = []
         for i in range(0,self.natoms):
             for j in range(i+2,self.natoms):
                 distance=0
                 for k in range(0,3):
                     distance += (self.coords[i,k]-self.coords[j,k])**2
                 if distance == 0:
-                    self.overlaps.append([i,j])
+                    self.overlap_map.append([i,j])
                 elif distance == self.lattice.contact_length:
-                    self.map.append([i,j])
-        return self.map
+                    self.contact_map.append([i,j])
+        return self.contact_map
     
     def free_moves(self, index):
         '''Return a list of unoccupied pylatt points surrounding a residue.'''

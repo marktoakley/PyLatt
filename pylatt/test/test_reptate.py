@@ -16,7 +16,7 @@ class ReptateTest(unittest.TestCase):
         for i in range (1, 1000):
             print i
             structure = reptator.move(structure)
-            self.assertEqual(0,len(structure.overlaps))
+            self.assertEqual(0,len(structure.overlap_map))
         
     
 if __name__ == "__main__":
