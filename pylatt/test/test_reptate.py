@@ -14,7 +14,6 @@ class ReptateTest(unittest.TestCase):
         structure = factory.random_avoid()
         reptator = Reptator()
         for i in range (1, 1000):
-            print i
             structure = reptator.move(structure)
             self.assertEqual(0,len(structure.overlap_map))
         
