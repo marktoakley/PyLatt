@@ -12,7 +12,29 @@ import random
 import numpy as np
 from pylatt.lattice_structure import LatticeStructure
 
-class Reptator:
+class CornerFlip:
+    
+    def move(self, structure):
+        trapped = True
+        while trapped:
+            trapped = False
+            move_res = random.randint(1,structure.natoms-2)
+            move1 = structure.free_moves(move_res-1)
+            move2 = structure.free_moves(move_res+1)
+            next_move=[]
+            for i in move1:
+                for j in move2:
+                    if np.all(i == j):
+                        next_move.append(i)
+            if len(next_move) == 0:
+                trapped = True    
+        my_move = random.choice(next_move)        
+        coords = np.copy(structure.coords)
+        coords[move_res] = my_move
+        new_structure = LatticeStructure(structure.lattice, coords)
+        return new_structure
+        
+class Reptate:
     '''Move by reptation.'''
     
     def move(self, structure):
@@ -40,6 +62,5 @@ class Reptator:
             for i in range(0,structure.natoms-1):
                 coords[i] = structure.coords[i+1]
         new_structure = LatticeStructure(structure.lattice, coords)
-        new_structure.make_contact_map()
         return new_structure
             

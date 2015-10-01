@@ -5,7 +5,7 @@ from math import exp
 import random
 
 from pylatt.lattice_structure import LatticeStructureFactory
-from pylatt.reptate import Reptator
+from pylatt.move import Reptate
 
 class RandomSearch:
     '''Repeatedly generates random structures.'''
@@ -46,7 +46,7 @@ class MonteCarlo:
         self.model.calculate_energy(self.last_structure)
         self.best_structure = self.last_structure
         self.best_energy = self.best_structure.energy
-        self.mover = Reptator()
+        self.mover = Reptate()
         self.step = 0
         
     def run(self, steps):
