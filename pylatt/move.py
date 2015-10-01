@@ -33,7 +33,26 @@ class CornerFlip:
         coords[move_res] = my_move
         new_structure = LatticeStructure(structure.lattice, coords)
         return new_structure
-        
+
+class EndFlip:
+    
+    def move(self, structure):
+        trapped = True
+        while trapped:
+            trapped = False
+            if random.random() < 0.5: # Choose terminus to move
+                move_res=0
+            else:
+                move_res=structure.natoms-1
+            next_move = structure.free_moves(move_res)
+            if len(next_move) == 0:
+                trapped = True     
+        my_move = random.choice(next_move)        
+        coords = np.copy(structure.coords)
+        coords[move_res] = my_move
+        new_structure = LatticeStructure(structure.lattice, coords)
+        return new_structure
+
 class Reptate:
     '''Move by reptation.'''
     

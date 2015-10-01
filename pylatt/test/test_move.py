@@ -18,6 +18,15 @@ class MoveTest(unittest.TestCase):
             structure = mover.move(structure)
             self.assertEqual(0,len(structure.overlap_map))
 
+    def test_end_flip(self):
+        sequence = "PHPPHPHHHPHHPHHHHH"
+        factory = LatticeStructureFactory(len(sequence), lattice = FCCLattice())
+        structure = factory.random_avoid()
+        mover = EndFlip()
+        for i in range (1, 1000):
+            structure = mover.move(structure)
+            self.assertEqual(0,len(structure.overlap_map))
+
     def test_reptate(self):
         sequence = "PHPPHPHHHPHHPHHHHH"
         factory = LatticeStructureFactory(len(sequence), lattice = SquareLattice())
