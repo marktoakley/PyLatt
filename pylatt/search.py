@@ -38,7 +38,7 @@ class RandomSearch:
         return self.best_structure
     
 class MonteCarlo:
-    '''Metropolis Monte Carlo.'''
+    '''Perform a Metropolis Monte Carlo search.'''
     def __init__(self, lattice, model):
         self.lattice = lattice
         self.model = model
@@ -62,4 +62,10 @@ class MonteCarlo:
         return self.best_structure
     
 def metropolis_probability(e1, e2, r=1.0, t=1.0):
+    '''Return the Metropolis acceptance probability:
+    
+    e1: initial enrgy
+    e2: final energy
+    r: gas constant
+    t: temperature'''
     return min(exp(-((e2 - e1) / (r * t))), 1.)

@@ -36,6 +36,9 @@ class HP(Potential):
     def __init__(self,sequence):
         '''Set up the hydrophobic-polar model.
         
+        See:
+        K. F. Lau and K. A. Dill, Macromolecules, 1989, 22, 3986-3997, doi:10.1021/ma00200a030
+        
         The parameter sequence is a string of "H" and "P" characters
         (e.g. "PPHHHPHHHP") denoting each residue as hydrophobic or polar.'''
         self.labels="HP"
