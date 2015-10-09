@@ -16,26 +16,47 @@ class LatticeStructure:
     To generate new LatticeStructures, use the LatticeStructureFactory
     rather than the constructor in this class.'''
     
-    def __init__(self,lattice,coords):
+    def __init__(self,lattice,coords,termini=None):
         self.lattice = lattice
         self.coords = np.array(coords)
         self.natoms = len(coords)
+        if termini == None:
+            self.termini = [0, self.natoms -1]
+        else:
+            self.termini = termini
+        self.num_chains = len(self.termini)/2
         self.make_contact_map()
             
     def make_contact_map(self):
         '''Generate the contact contact_map and overlap contact_map for a protein structure.'''
         self.contact_map = []
         self.overlap_map = []
+        #Look for distant pairs
         for i in range(0,self.natoms):
             for j in range(i+2,self.natoms):
-                distance=0
-                for k in range(0,3):
-                    distance += (self.coords[i,k]-self.coords[j,k])**2
+                distance=self.get_distance2(i, j)
                 if distance == 0:
                     self.overlap_map.append([i,j])
                 elif distance == self.lattice.contact_length:
                     self.contact_map.append([i,j])
+        # Look for contacts between termini
+        for index in range(0, len(self.termini)-1):
+            i = self.termini[index]
+            j = self.termini[index +1]
+            if j - i ==1:
+                distance=self.get_distance2(i, j)
+                if distance == 0:
+                    self.overlap_map.append([i,j])
+                elif distance == self.lattice.contact_length:
+                    self.contact_map.append([i,j])
+                
         return self.contact_map
+    
+    def get_distance2(self, i, j):
+        distance=0
+        for k in range(0,3):
+            distance += (self.coords[i,k]-self.coords[j,k])**2
+        return distance
     
     def free_moves(self, index):
         '''Return a list of unoccupied pylatt points surrounding a residue.'''
