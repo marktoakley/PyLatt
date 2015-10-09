@@ -9,10 +9,10 @@ from pylatt.move import Reptate
 
 class RandomSearch:
     '''Repeatedly generates random structures.'''
-    def __init__(self, lattice, model):
+    def __init__(self, lattice, model, termini = None):
         self.lattice = lattice
         self.model = model
-        self.factory = LatticeStructureFactory(self.model.natoms, self.lattice)
+        self.factory = LatticeStructureFactory(self.model.natoms, self.lattice, termini = termini)
         self.step=0
         self.best_structure = self.factory.random_avoid()
         self.best_energy = self.model.calculate_energy(self.best_structure)
@@ -39,10 +39,10 @@ class RandomSearch:
     
 class MonteCarlo:
     '''Perform a Metropolis Monte Carlo search.'''
-    def __init__(self, lattice, model):
+    def __init__(self, lattice, model, termini = None):
         self.lattice = lattice
         self.model = model
-        self.last_structure = LatticeStructureFactory(self.model.natoms, self.lattice).random_avoid()
+        self.last_structure = LatticeStructureFactory(self.model.natoms, self.lattice, termini = termini).random_avoid()
         self.model.calculate_energy(self.last_structure)
         self.best_structure = self.last_structure
         self.best_energy = self.best_structure.energy

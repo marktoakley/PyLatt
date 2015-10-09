@@ -37,6 +37,21 @@ class MonteCarloTest(unittest.TestCase):
         energy2 = search.best_energy
         self.assertLessEqual(energy2, energy1)
         
+    def test_multidomain(self):
+        sequence = "HHHHPPHHHHHHHHPPHHHH"
+        termini = [0,9,10,19]
+        model = HP(sequence)
+        lattice = SquareLattice()
+        search = MonteCarlo(lattice, model, termini)
+        search.run(10)
+        self.assertEqual(10, search.step)
+        energy1 = search.best_energy
+        search.run(10)
+        self.assertEqual(20, search.step)
+        energy2 = search.best_energy
+        self.assertLessEqual(energy2, energy1)
+        self.assertEqual(2, search.best_structure.num_chains)
+        
 class MetropolisTest(unittest.TestCase):
     
     def test_metropolis(self):
