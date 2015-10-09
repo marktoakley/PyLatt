@@ -19,6 +19,8 @@ class CornerFlip:
         while trapped:
             trapped = False
             move_res = random.randint(1,structure.natoms-2)
+            if move_res in structure.termini:
+                trapped=True
             move1 = structure.free_moves(move_res-1)
             move2 = structure.free_moves(move_res+1)
             next_move=[]
@@ -31,27 +33,28 @@ class CornerFlip:
         my_move = random.choice(next_move)        
         coords = np.copy(structure.coords)
         coords[move_res] = my_move
-        new_structure = LatticeStructure(structure.lattice, coords)
+        new_structure = LatticeStructure(structure.lattice, coords, termini = structure.termini)
         return new_structure
 
 class EndFlip:
     
     def move(self, structure):
         trapped = True
+
         while trapped:
             trapped = False
-            if random.random() < 0.5: # Choose terminus to move
-                move_res=0
-                next_move = structure.free_moves(1)
-            else:
-                move_res=structure.natoms-1
+            index = random.randint(0, len(structure.termini)-1)
+            move_res =structure.termini[index]
+            if index%2==0: # First in chain
+                next_move = structure.free_moves(move_res+1)
+            else: # Last in chain
                 next_move = structure.free_moves(move_res-1)
             if len(next_move) == 0:
                 trapped = True     
         my_move = random.choice(next_move)        
         coords = np.copy(structure.coords)
         coords[move_res] = my_move
-        new_structure = LatticeStructure(structure.lattice, coords)
+        new_structure = LatticeStructure(structure.lattice, coords, termini = structure.termini)
         return new_structure
 
 class Reptate:
@@ -60,27 +63,26 @@ class Reptate:
     def move(self, structure):
         '''Take a LatticeStructure and return another one by
         performing a reptation move.'''
-        
-        coords = np.zeros((structure.natoms,3),dtype=int)
+        coords = np.copy(structure.coords)
         trapped = True
         while trapped:
+            index = random.randint(0, len(structure.termini)-1)
+            move_res =structure.termini[index]
             trapped = False
-            if random.random() < 0.5: # Choose terminus to move
-                move_res=0
-            else:
-                move_res=structure.natoms-1
             next_move = structure.free_moves(move_res)
             if len(next_move) == 0:
                 trapped = True
         my_move = random.choice(next_move)
-        if move_res == 0:
-            coords[0] = my_move
-            for i in range(1,structure.natoms):
-                coords[i] = structure.coords[i-1]
-        else:
+        if index%2==0: # First in chain
+            end = structure.termini[index+1]
             coords[move_res] = my_move
-            for i in range(0,structure.natoms-1):
+            for i in range(move_res+1,end+1):
+                coords[i] = structure.coords[i-1]
+        else: # Last in chain
+            end = structure.termini[index-1]
+            coords[move_res] = my_move
+            for i in range(end, move_res):
                 coords[i] = structure.coords[i+1]
-        new_structure = LatticeStructure(structure.lattice, coords)
+        new_structure = LatticeStructure(structure.lattice, coords, termini = structure.termini)
         return new_structure
             

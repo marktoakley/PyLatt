@@ -78,12 +78,10 @@ class LatticeStructure:
             for k in range(0,3):
                 distance += (self.coords[i,k]-self.coords[i+1,k])**2
             if distance != self.lattice.contact_length:
-                return True
+                if not ((i in self.termini) and (i+1 in self.termini)): 
+                    return True
         return False
                 
-                
-            
-    
 class LatticeStructureFactory:
     '''Generate new LatticeStructures.'''
         

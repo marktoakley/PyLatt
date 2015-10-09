@@ -6,6 +6,16 @@ from pylatt.lattice import CubicLattice, SquareLattice
 from pylatt.lattice_structure import LatticeStructure,LatticeStructureFactory
 
 class StructureTest(unittest.TestCase):
+    
+    def test_broken(self):
+        lattice=CubicLattice()
+        coords=[[0,0,0],
+                [0,0,1],
+                [0,5,1],
+                [0,5,0]]
+        structure=LatticeStructure(lattice,coords)
+        self.assertTrue(structure.broken_chain())
+        
 
     def test_contact_map(self):
         lattice=CubicLattice()
