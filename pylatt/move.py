@@ -42,9 +42,10 @@ class EndFlip:
             trapped = False
             if random.random() < 0.5: # Choose terminus to move
                 move_res=0
+                next_move = structure.free_moves(1)
             else:
                 move_res=structure.natoms-1
-            next_move = structure.free_moves(move_res)
+                next_move = structure.free_moves(move_res-1)
             if len(next_move) == 0:
                 trapped = True     
         my_move = random.choice(next_move)        

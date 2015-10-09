@@ -8,6 +8,7 @@ import numpy as np
 import random
 
 from pylatt.lattice import CubicLattice
+from __builtin__ import True
 
 class LatticeStructure:
     '''Stores the coordinates and properties of pylatt model proteins.
@@ -47,6 +48,20 @@ class LatticeStructure:
     def occupied(self,point):
         '''Check whether a pylatt point is occupied.'''
         return any(np.all(self.coords==point,axis=1))
+    
+    def broken_chain(self):
+        '''Check for successive residues separated by more than one lattice point.
+        If this returns True, there is probably a bug in the code used to make the LatticeStructure.'''
+        for i in range(0, self.natoms-1):
+            distance = 0
+            for k in range(0,3):
+                distance += (self.coords[i,k]-self.coords[i+1,k])**2
+            if distance != self.lattice.contact_length:
+                return True
+        return False
+                
+                
+            
     
 class LatticeStructureFactory:
     '''Generate new LatticeStructures.'''

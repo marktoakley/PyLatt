@@ -17,6 +17,7 @@ class MoveTest(unittest.TestCase):
         for i in range (1, 1000):
             structure = mover.move(structure)
             self.assertEqual(0,len(structure.overlap_map))
+            self.assertFalse(structure.broken_chain())
 
     def test_end_flip(self):
         sequence = "PHPPHPHHHPHHPHHHHH"
@@ -26,7 +27,8 @@ class MoveTest(unittest.TestCase):
         for i in range (1, 1000):
             structure = mover.move(structure)
             self.assertEqual(0,len(structure.overlap_map))
-
+            self.assertFalse(structure.broken_chain())
+            
     def test_reptate(self):
         sequence = "PHPPHPHHHPHHPHHHHH"
         factory = LatticeStructureFactory(len(sequence), lattice = SquareLattice())
@@ -35,6 +37,7 @@ class MoveTest(unittest.TestCase):
         for i in range (1, 1000):
             structure = mover.move(structure)
             self.assertEqual(0,len(structure.overlap_map))        
-    
+            self.assertFalse(structure.broken_chain())
+                
 if __name__ == "__main__":
     unittest.main()
