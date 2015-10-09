@@ -41,7 +41,6 @@ class StructureTest(unittest.TestCase):
                 [0,1,0]]
         structure=LatticeStructure(lattice,coords, termini=[0,3,4,7])
         structure.make_contact_map()
-        print structure.contact_map
         self.assertEqual(4,len(structure.contact_map))
         self.assertEqual(0,len(structure.overlap_map))
         self.assertFalse(structure.broken_chain())
@@ -63,17 +62,24 @@ class FactoryTest(unittest.TestCase):
         factory=LatticeStructureFactory(10 ,CubicLattice())
         structure=factory.random()
         self.assertEqual(10,structure.natoms)
+        self.assertEqual(1,structure.num_chains)
         
     def test_avoid(self):
         factory=LatticeStructureFactory(100, CubicLattice())
         structure=factory.random_avoid()
         self.assertEqual(0,len(structure.overlap_map))
+        self.assertEqual(1,structure.num_chains)
     
     def test_trapping(self):
         factory = LatticeStructureFactory(150, SquareLattice())
         structure=factory.random_avoid()
         self.assertEqual(0,len(structure.overlap_map))
-        
+    
+    def test_multidomain(self):
+        factory=LatticeStructureFactory(20, CubicLattice(), termini=[0,9,10,19])
+        structure=factory.random_avoid()
+        self.assertEqual(0,len(structure.overlap_map))
+        self.assertEqual(2,structure.num_chains)
         
 if __name__ == "__main__":
     unittest.main()

@@ -87,9 +87,10 @@ class LatticeStructure:
 class LatticeStructureFactory:
     '''Generate new LatticeStructures.'''
         
-    def __init__(self, natoms, lattice=CubicLattice()):
+    def __init__(self, natoms, lattice=CubicLattice(), termini=None):
         self.lattice = lattice
         self.natoms = natoms
+        self.termini = termini
             
     def random(self):
         '''Generate a random pylatt structure.
@@ -99,7 +100,7 @@ class LatticeStructureFactory:
         coords = np.zeros((self.natoms,3),dtype=int)
         for i in range(1,self.natoms):
             coords[i] = np.add(coords[i-1],random.choice(self.lattice.get_moves(coords[i-1])))
-        structure=LatticeStructure(self.lattice,coords)
+        structure=LatticeStructure(self.lattice,coords,termini =self.termini)
         structure.make_contact_map()
         return structure
         
@@ -115,7 +116,7 @@ class LatticeStructureFactory:
         while trapped:
             trapped = False
             coords = np.zeros((self.natoms,3),dtype=int)
-            structure = LatticeStructure(self.lattice,coords)
+            structure = LatticeStructure(self.lattice,coords,termini=self.termini)
             for i in range(1,self.natoms):
                 next_move = structure.free_moves(i-1)
                 if len(next_move) == 0:
