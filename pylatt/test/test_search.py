@@ -52,6 +52,14 @@ class MonteCarloTest(unittest.TestCase):
         self.assertLessEqual(energy2, energy1)
         self.assertEqual(2, search.best_structure.num_chains)
         
+    def test_exceptions(self): 
+        model = HP("HHHHPPHHHHHHHHPPHHHH")
+        lattice = SquareLattice()
+        with self.assertRaises(ValueError):
+            MonteCarlo(lattice, model, temperature = 0)
+            MonteCarlo(lattice, model, gas_constant = 0)
+        
+        
 class MetropolisTest(unittest.TestCase):
     
     def test_metropolis(self):
