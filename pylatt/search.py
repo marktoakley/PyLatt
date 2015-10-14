@@ -41,8 +41,19 @@ class RandomSearch:
         return self.best_structure
     
 class MonteCarlo:
-    '''Perform a Metropolis Monte Carlo search.'''
-    def __init__(self, lattice, model, termini = None, first_structure = None, gas_constant = 1.0, temperature = 1.0):
+    '''Perform a Metropolis Monte Carlo search.
+    
+    Parameters
+    ----------
+    Required
+    lattice: A Lattice frombcga.lattice
+    model: A Model from bcga.model
+    Optional
+    termini: A list containing the indices of the ends of protein chains (only needed for multicain systems)
+    first_structure: A bcga.lattice_structure object to start the search (A random one will be generated if none is supplied)
+    temperature: The temperature used in the Metropolis test (units are dependent on the model being used)
+    '''
+    def __init__(self, lattice, model, termini = None, first_structure = None, temperature = 1.0):
         self.lattice = lattice
         self.model = model
         if first_structure is None:
@@ -54,12 +65,8 @@ class MonteCarlo:
         self.best_energy = self.best_structure.energy
         self.mover = Reptate()
         self.step = 0
-        if gas_constant > 0:
-            self.r = float(gas_constant)
-        else:
-            raise ValueError("gas_constant must be > 0")
         if temperature > 0:
-            self.t = float(temperature)
+            self.rt = float(temperature)
         else:
             raise ValueError("temperature must be > 0")
         
@@ -71,15 +78,15 @@ class MonteCarlo:
             if structure.energy < self.best_structure.energy:
                 self.best_structure = structure
                 self.best_energy = energy
-            if random.random() < metropolis_probability(self.last_structure.energy, structure.energy, self.r, self.t):
+            if random.random() < metropolis_probability(self.last_structure.energy, structure.energy, self.rt):
                 self.last_structure = structure
         return self.best_structure
     
-def metropolis_probability(e1, e2, r=1.0, t=1.0):
+def metropolis_probability(e1, e2, rt=1.0):
     '''Return the Metropolis acceptance probability:
     
     e1: initial enrgy
     e2: final energy
-    r: gas constant
-    t: temperature'''
-    return min(exp(-((e2 - e1) / (r * t))), 1.)
+    rt: gas constant * temperature
+    '''
+    return min(exp(-((e2 - e1) / (rt))), 1.)

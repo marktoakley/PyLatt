@@ -57,9 +57,7 @@ class MonteCarloTest(unittest.TestCase):
         lattice = SquareLattice()
         with self.assertRaises(ValueError):
             MonteCarlo(lattice, model, temperature = 0)
-            MonteCarlo(lattice, model, gas_constant = 0)
-        
-        
+              
 class MetropolisTest(unittest.TestCase):
     
     def test_metropolis(self):
