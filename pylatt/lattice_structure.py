@@ -1,6 +1,4 @@
 '''
-Created on 18 Sep 2015
-
 @author: Mark Oakley
 '''
 
@@ -25,12 +23,17 @@ class LatticeStructure:
         else:
             self.termini = termini
         self.num_chains = len(self.termini)/2
+        self.contact_map = None
+        self.overlap_map = None
+        self.coordination_no = None
         self.make_contact_map()
+        self.energy = None
             
     def make_contact_map(self):
-        '''Generate the contact contact_map and overlap contact_map for a protein structure.'''
+        '''Generate the contact contact_map, overlap_map coordination_no for a protein structure.'''
         self.contact_map = []
         self.overlap_map = []
+        self.coordination_no = [0] * self.natoms
         #Look for distant pairs
         for i in range(0,self.natoms):
             for j in range(i+2,self.natoms):
@@ -39,6 +42,8 @@ class LatticeStructure:
                     self.overlap_map.append([i,j])
                 elif distance == self.lattice.contact_length:
                     self.contact_map.append([i,j])
+                    self.coordination_no[i] += 1
+                    self.coordination_no[j] += 1
         # Look for contacts between termini
         for index in range(0, len(self.termini)-1):
             i = self.termini[index]
@@ -49,10 +54,13 @@ class LatticeStructure:
                     self.overlap_map.append([i,j])
                 elif distance == self.lattice.contact_length:
                     self.contact_map.append([i,j])
+                    self.coordination_no[i] += 1
+                    self.coordination_no[j] += 1
                 
         return self.contact_map
     
     def get_distance2(self, i, j):
+        '''Return the square of the distance between residues with indices i and j.'''
         distance=0
         for k in range(0,3):
             distance += (self.coords[i,k]-self.coords[j,k])**2

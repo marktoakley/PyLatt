@@ -28,6 +28,8 @@ class StructureTest(unittest.TestCase):
         self.assertEqual(1,len(structure.contact_map))
         self.assertEqual(0,len(structure.overlap_map))
         self.assertEqual(1,structure.num_chains)
+        self.assertEqual(1,structure.coordination_no[0])
+        self.assertEqual(0,structure.coordination_no[1])
         
     def test_free_moves(self):
         lattice=CubicLattice()
@@ -55,7 +57,9 @@ class StructureTest(unittest.TestCase):
         self.assertEqual(0,len(structure.overlap_map))
         self.assertFalse(structure.broken_chain())
         self.assertEqual(2,structure.num_chains)
-        
+        self.assertEqual(1,structure.coordination_no[0])
+        self.assertEqual(1,structure.coordination_no[1])
+                
         def test_overlap(self):
             lattice=CubicLattice()
             coords=[[0,0,0],
