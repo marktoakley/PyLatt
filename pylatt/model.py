@@ -3,12 +3,18 @@ The two-colour hydrophobic-polar model.
 
 @author: Mark Oakley
 '''
+from abc import ABCMeta, abstractmethod
 
-class Potential:
+class Potential():
     '''Superclass for interaction potentials.'''
+    __metaclass__ = ABCMeta
+        
+    @abstractmethod
+    def calculate_energy(self, structure): pass
+    '''Calculate the energy of a LatticeStructure.'''
     
-    def calculate_energy(self,structure):
-        '''Calculate the energy of a LatticeStructure.'''
+    def calculate_pair_energy(self,structure):
+        '''Calculate the pairwise energy component for a LatticeStructure.'''
         energy = 0
         structure.make_contact_map()
         for contact in structure.contact_map:
@@ -45,6 +51,9 @@ class HP(Potential):
         self.pair_potential = [[-1,0],
                                [0,0]]
         self.read_sequence(sequence)
+        
+    def calculate_energy(self, structure):
+        return self.calculate_pair_energy(structure)
 
     
 class MJ(Potential):
@@ -76,3 +85,6 @@ class MJ(Potential):
                                [ -1.95, -2.48, -3.36, -3.01, -3.37, -2.49, -2.69, -2.6, -1.31, -1.15, -1.31, -1.05, -1.21, -1.29, -1.68, -1.8, -1.35,-0.59, -0.12, -0.97 ],
                                [-3.07, -3.45, -4.25, -3.76, -4.2, -3.32, -3.73, -3.19, -2.03,-1.87, -1.9, -1.57, -1.53, -1.73, -1.33, -1.26, -2.25,-1.7, -0.97, -1.75 ]]
         self.read_sequence(sequence)
+        
+    def calculate_energy(self, structure):
+        return self.calculate_pair_energy(structure)
