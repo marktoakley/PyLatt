@@ -6,8 +6,13 @@ Created on 22 Sep 2015
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-def plot_2d(structure, model):
-    '''Display a 2D representation of a structure.''' 
+def plot_2d(structure, model = None):
+    '''Display a 2D representation of a structure.
+    
+    Parameters
+    ----------
+    structure: A LatticeStructure
+    model(optional): a Potential object (used to colour provide coloured residue types). ''' 
     x = structure.coords[:,0]
     y = structure.coords[:,1]
     plot_range = max ((max(x) - min(x)),
@@ -23,14 +28,22 @@ def plot_2d(structure, model):
         end = structure.termini[2*i+1]+1
         x = structure.coords[start:end,0]
         y = structure.coords[start:end,1]
-        colours = model.isequence[start:end]
+        if model is None:
+            colours = [0] *(end-start)
+        else:
+            colours = model.isequence[start:end]
         plt.scatter(x,y,s=100,c=colours)
         plt.plot(x,y)
 
     plt.show()
     
-def plot_3d(structure, model):
-    '''Display a 3D representation of a structure.'''
+def plot_3d(structure, model = None):
+    '''Display a 3D representation of a structure.
+    
+    Parameters
+    ----------
+    structure: A LatticeStructure
+    model(optional): a Potential object (used to colour provide coloured residue types).''' 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     xs = structure.coords[:,0]
@@ -52,7 +65,10 @@ def plot_3d(structure, model):
         xs = structure.coords[start:end,0]
         ys = structure.coords[start:end,1]
         zs = structure.coords[start:end,2]    
-        colours = model.isequence[start:end]
+        if model is None:
+            colours = [0] *(end-start)
+        else:
+            colours = model.isequence[start:end]
         ax.scatter(xs,ys,zs,s=100,c=colours)
         ax.plot(xs,ys,zs)
     plt.title("Energy = "+str(structure.energy))
