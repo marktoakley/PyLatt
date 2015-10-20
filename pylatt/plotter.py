@@ -20,7 +20,7 @@ def plot_2d(structure, model = None):
     xmin = float((max(x)+min(x)-plot_range))/2
     ymin = float((max(y)+min(y)-plot_range))/2
     plt.figure(figsize=(5,5))
-    plt.title("Energy = "+str(structure.energy))
+    #plt.title("Energy = "+str(structure.energy))
     plt.xlim(xmin-.5, xmin+plot_range+.5)
     plt.ylim(ymin-.5, ymin+plot_range+.5)
     for i in range(0, len(structure.termini)/2):
@@ -71,6 +71,6 @@ def plot_3d(structure, model = None):
             colours = model.isequence[start:end]
         ax.scatter(xs,ys,zs,s=100,c=colours)
         ax.plot(xs,ys,zs)
-    plt.title("Energy = "+str(structure.energy))
+    #plt.title("Energy = "+str(structure.energy))
     plt.show()
     
