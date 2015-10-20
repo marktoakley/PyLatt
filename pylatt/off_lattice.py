@@ -16,7 +16,7 @@ def read_from_pdb(PDB_ID):
     url = "http://www.rcsb.org/pdb/files/"+PDB_ID+".pdb"
     print url
     f = urllib2.urlopen(url)
-    return read_from_iterator(f)
+    return read_from_iterable(f)
 
 def read_from_file(file_name):
     '''Generate an OffLatticeStructure by reading its properties from a PDB file.
@@ -25,12 +25,18 @@ def read_from_file(file_name):
     ----------
     file_name: a pdb file'''
     with open(file_name,'r') as f:
-        return read_from_iterator(f)
+        return read_from_iterable(f)
     
-def read_from_iterator(f):
+def read_from_iterable(pdb):
+    '''Generate an OffLatticeStructure by reading its properties from an iterable object.
+    
+    Parameters
+    ----------
+    pdb: an iterable object containing a pdb file
+    '''
     coords=[]
     chains=[]
-    for line in f:
+    for line in pdb:
         if line[0:6]=="ATOM  ":
             atom_no = int(line[6:11])
             atom_name = line[12:16]

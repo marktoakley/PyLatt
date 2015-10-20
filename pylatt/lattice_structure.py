@@ -6,7 +6,6 @@ import numpy as np
 import random
 
 from pylatt.lattice import CubicLattice
-from __builtin__ import True
 
 class LatticeStructure:
     '''Stores the coordinates and properties of pylatt model proteins.
