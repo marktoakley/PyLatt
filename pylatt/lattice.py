@@ -23,6 +23,7 @@ class CubicLattice(Lattice):
                     [1,0,0],
                     [-1,0,0]])
     contact_length=1
+    angstrom = 3.80
     
     def get_moves(self, point):
         return self.moves
@@ -50,6 +51,7 @@ class BCCLattice(Lattice):
                     [-1,-1,1],
                     [-1,-1,-1]])
     contact_length=3
+    angstrom = 2.19
     
     def get_moves(self, point):
         return self.moves
@@ -69,6 +71,7 @@ class FCCLattice(Lattice):
                     [-1,0,1],
                     [-1,0,-1]])
     contact_length=2
+    angstrom = 2.69
     
     def get_moves(self, point):
         return self.moves
@@ -84,6 +87,7 @@ class DiamondLattice(Lattice):
                         [-1,-1,-1],
                         [-1,1,1]])
     contact_length=3
+    angstrom = 2.19
     
     def get_moves(self,point):
         if (sum(point) % 2) ==0:

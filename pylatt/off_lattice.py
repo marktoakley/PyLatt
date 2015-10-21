@@ -5,6 +5,8 @@
 import numpy as np
 import urllib2
 
+from pylatt.lattice_structure import LatticeStructure
+
 def read_from_pdb(PDB_ID):
     '''Generate an OffLatticeStructure by downloading its properties
     from the Protein Data Bank (http://www.rcsb.org/).
@@ -59,6 +61,38 @@ def read_from_iterable(pdb):
     termini.append(len(chains)-1)
     coords = np.array(coords)
     return OffLatticeStructure(coords, termini)
+
+def to_lattice(structure, lattice):
+    '''Fit an OffLatticeStrucure to a lattice.
+    
+    This only performs a quick fit and is intended to generate the
+    starting point for the pdb2lattice optimiser.'''
+    unit_coords = structure.coords / lattice.angstrom
+    unit_coords -= unit_coords[0]
+    lattice_structure = LatticeStructure(lattice,
+                                         np.zeros((structure.natoms,3),dtype=int),
+                                         structure.termini)
+    for i in range(1,structure.natoms):
+        next_move = lattice_structure.free_moves(i-1)
+        my_move = closest_move(next_move,unit_coords[i])
+        lattice_structure.coords[i] = my_move
+    lattice_structure.make_contact_map()
+    return lattice_structure
+    
+def closest_move(move_list, target):
+    '''Return the lattice point from move_list closest to the target
+    off-lattice point.'''
+    min_distance = 1000000.
+    for move in move_list:
+        distance=0
+        vector = move - target
+        for j in range(0, 3):
+            distance += vector[j]**2
+        if distance < min_distance:
+            best = move
+            min_distance = distance
+    return best
+                
     
 class OffLatticeStructure:
     def __init__(self, coords, termini):
