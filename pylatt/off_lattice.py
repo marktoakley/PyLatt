@@ -3,7 +3,7 @@
 '''
 
 import numpy as np
-import urllib2
+import urllib
 
 from pylatt.lattice_structure import LatticeStructure
 
@@ -16,8 +16,8 @@ def read_from_pdb(PDB_ID):
     PDB_ID: A 4-character PDB ID (e.g. 4ins for insulin)
     '''
     url = "http://www.rcsb.org/pdb/files/"+PDB_ID+".pdb"
-    print url
-    f = urllib2.urlopen(url)
+    print (url)
+    f = urllib.urlopen(url)
     return read_from_iterable(f)
 
 def read_from_file(file_name):

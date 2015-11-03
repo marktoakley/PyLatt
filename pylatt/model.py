@@ -33,7 +33,7 @@ class Potential():
             try:
                 self.isequence.append(self.labels.index(c))
             except ValueError:
-                print "Unknown residue type: ",c
+                print ("Unknown residue type: ",c)
                 raise
 
 class HP(Potential):
