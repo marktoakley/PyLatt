@@ -23,7 +23,7 @@ def plot_2d(structure, model = None):
     #plt.title("Energy = "+str(structure.energy))
     plt.xlim(xmin-.5, xmin+plot_range+.5)
     plt.ylim(ymin-.5, ymin+plot_range+.5)
-    for i in range(0, len(structure.termini)/2):
+    for i in range(0, len(structure.termini)//2):
         start = structure.termini[2*i]
         end = structure.termini[2*i+1]+1
         x = structure.coords[start:end,0]
@@ -59,7 +59,7 @@ def plot_3d(structure, model = None):
     ax.set_ylim3d((ymin-.5), (ymin+plot_range+.5))
     ax.set_zlim3d((zmin-.5), (zmin+plot_range+.5))
     ax.set_axis_off()
-    for i in range(0, len(structure.termini)/2):
+    for i in range(0, len(structure.termini)//2):
         start = structure.termini[2*i]
         end = structure.termini[2*i+1]+1
         xs = structure.coords[start:end,0]
