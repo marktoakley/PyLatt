@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '_search_dialog.ui'
 #
-# Created: Tue Nov 10 17:10:35 2015
+# Created: Tue Nov 10 22:30:10 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,22 +23,22 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_DialogLJSetup(object):
-    def setupUi(self, DialogLJSetup):
-        DialogLJSetup.setObjectName(_fromUtf8("DialogLJSetup"))
-        DialogLJSetup.resize(347, 348)
+class Ui_DialogSearchSetup(object):
+    def setupUi(self, DialogSearchSetup):
+        DialogSearchSetup.setObjectName(_fromUtf8("DialogSearchSetup"))
+        DialogSearchSetup.resize(347, 348)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(DialogLJSetup.sizePolicy().hasHeightForWidth())
-        DialogLJSetup.setSizePolicy(sizePolicy)
-        DialogLJSetup.setModal(True)
-        self.buttonBox = QtGui.QDialogButtonBox(DialogLJSetup)
+        sizePolicy.setHeightForWidth(DialogSearchSetup.sizePolicy().hasHeightForWidth())
+        DialogSearchSetup.setSizePolicy(sizePolicy)
+        DialogSearchSetup.setModal(True)
+        self.buttonBox = QtGui.QDialogButtonBox(DialogSearchSetup)
         self.buttonBox.setGeometry(QtCore.QRect(30, 280, 301, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.gridLayoutWidget = QtGui.QWidget(DialogLJSetup)
+        self.gridLayoutWidget = QtGui.QWidget(DialogSearchSetup)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(20, 20, 301, 241))
         self.gridLayoutWidget.setObjectName(_fromUtf8("gridLayoutWidget"))
         self.gridLayout = QtGui.QGridLayout(self.gridLayoutWidget)
@@ -77,24 +77,24 @@ class Ui_DialogLJSetup(object):
         self.lineEdit_steps.setObjectName(_fromUtf8("lineEdit_steps"))
         self.gridLayout.addWidget(self.lineEdit_steps, 4, 1, 1, 1)
 
-        self.retranslateUi(DialogLJSetup)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), DialogLJSetup.accept)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), DialogLJSetup.reject)
-        QtCore.QMetaObject.connectSlotsByName(DialogLJSetup)
+        self.retranslateUi(DialogSearchSetup)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), DialogSearchSetup.accept)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), DialogSearchSetup.reject)
+        QtCore.QMetaObject.connectSlotsByName(DialogSearchSetup)
 
-    def retranslateUi(self, DialogLJSetup):
-        DialogLJSetup.setWindowTitle(_translate("DialogLJSetup", "Create binary Lennard-Jones system", None))
-        self.label_2.setText(_translate("DialogLJSetup", "Model", None))
-        self.lineEdit_sequence.setText(_translate("DialogLJSetup", "PHPPHPHHHPHHPHHHHH", None))
-        self.label.setText(_translate("DialogLJSetup", "Sequence", None))
-        self.label_3.setText(_translate("DialogLJSetup", "Lattice", None))
-        self.label_4.setText(_translate("DialogLJSetup", "Steps", None))
-        self.comboBox_model.setItemText(0, _translate("DialogLJSetup", "Hydrophobic-Polar", None))
-        self.comboBox_model.setItemText(1, _translate("DialogLJSetup", "Miyazawa-Jernigan", None))
-        self.comboBox_lattice.setItemText(0, _translate("DialogLJSetup", "Square", None))
-        self.comboBox_lattice.setItemText(1, _translate("DialogLJSetup", "Diamond", None))
-        self.comboBox_lattice.setItemText(2, _translate("DialogLJSetup", "Cubic", None))
-        self.comboBox_lattice.setItemText(3, _translate("DialogLJSetup", "BCC", None))
-        self.comboBox_lattice.setItemText(4, _translate("DialogLJSetup", "FCC", None))
-        self.lineEdit_steps.setText(_translate("DialogLJSetup", "100", None))
+    def retranslateUi(self, DialogSearchSetup):
+        DialogSearchSetup.setWindowTitle(_translate("DialogSearchSetup", "Lattice Monte Carlo", None))
+        self.label_2.setText(_translate("DialogSearchSetup", "Model", None))
+        self.lineEdit_sequence.setText(_translate("DialogSearchSetup", "PHPPHPHHHPHHPHHHHH", None))
+        self.label.setText(_translate("DialogSearchSetup", "Sequence", None))
+        self.label_3.setText(_translate("DialogSearchSetup", "Lattice", None))
+        self.label_4.setText(_translate("DialogSearchSetup", "Steps", None))
+        self.comboBox_model.setItemText(0, _translate("DialogSearchSetup", "Hydrophobic-Polar", None))
+        self.comboBox_model.setItemText(1, _translate("DialogSearchSetup", "Miyazawa-Jernigan", None))
+        self.comboBox_lattice.setItemText(0, _translate("DialogSearchSetup", "Square", None))
+        self.comboBox_lattice.setItemText(1, _translate("DialogSearchSetup", "Diamond", None))
+        self.comboBox_lattice.setItemText(2, _translate("DialogSearchSetup", "Cubic", None))
+        self.comboBox_lattice.setItemText(3, _translate("DialogSearchSetup", "BCC", None))
+        self.comboBox_lattice.setItemText(4, _translate("DialogSearchSetup", "FCC", None))
+        self.lineEdit_steps.setText(_translate("DialogSearchSetup", "100", None))
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogLJSetup</class>
- <widget class="QDialog" name="DialogLJSetup">
+ <class>DialogSearchSetup</class>
+ <widget class="QDialog" name="DialogSearchSetup">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Create binary Lennard-Jones system</string>
+   <string>Lattice Monte Carlo</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -144,7 +144,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>DialogLJSetup</receiver>
+   <receiver>DialogSearchSetup</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -160,7 +160,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>DialogLJSetup</receiver>
+   <receiver>DialogSearchSetup</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

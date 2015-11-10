@@ -9,7 +9,7 @@ from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 import matplotlib.pyplot as plt
 
-from pylatt.gui._search_dialog import Ui_DialogLJSetup as UI
+from pylatt.gui._search_dialog import Ui_DialogSearchSetup as UI
 from pylatt.model import *
 from pylatt.lattice import *
 from pylatt.search import *
