@@ -35,7 +35,8 @@ def plot_2d(structure, model = None):
         plt.scatter(x,y,s=100,c=colours)
         plt.plot(x,y)
 
-    plt.show()
+    #plt.show()
+    return plt
     
 def plot_3d(structure, model = None):
     '''Display a 3D representation of a structure.
@@ -72,5 +73,6 @@ def plot_3d(structure, model = None):
         ax.scatter(xs,ys,zs,s=100,c=colours)
         ax.plot(xs,ys,zs)
     #plt.title("Energy = "+str(structure.energy))
-    plt.show()
+    #plt.show()
+    return plt
     

@@ -16,4 +16,4 @@ termini = [0,8,9,17]
 lattice = FCCLattice()
 search = MonteCarlo(lattice, model, termini)
 structure = search.run(100)
-plot_3d(structure, model)
+plot_3d(structure, model).show()

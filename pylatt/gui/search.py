@@ -51,9 +51,10 @@ class SearchDialog(QtGui.QDialog):
         structure = search.run(self.steps)
         print("Lowest energy found: "+str(structure.energy))
         if (isinstance(lattice, SquareLattice)):
-            plot_2d(structure, model)
+            plot = plot_2d(structure, model)
         else:
-            plot_3d(structure, model) 
+            plot = plot_3d(structure, model)
+        plot.show()
         self.close()
 
     def on_buttonBox_rejected(self):
