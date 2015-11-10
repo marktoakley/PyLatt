@@ -1,11 +1,5 @@
 """
-start a gui for a binary lennard jones cluster.
-
-All that is really needed to start a gui is define a system and call run_gui
-
-    system = BLJCluster(natoms, ntypeA)
-    run_gui(system)
-
+GUI for optimisation of lattice model proteins.
 """
 import sys
 
@@ -37,43 +31,36 @@ class SearchDialog(QtGui.QDialog):
 
     def on_buttonBox_accepted(self):
         self.get_input()
+        if ("Miyazawa" in self.model):
+            model = MJ(self.sequence)
+        else:
+            model = HP(self.sequence)
+        if ("Square" in self.lattice):
+            lattice = SquareLattice()
+        elif ("Diamond" in self.lattice):
+            lattice = DiamondLattice()
+        elif ("Cubic" in self.lattice):
+            lattice = CubicLattice()
+        elif ("BCC" in self.lattice):
+            lattice = BCCLattice()
+        elif ("FCC" in self.lattice):
+            lattice = FCCLattice()
+        print("Using "+self.model+" model on "+self.lattice+" lattice.")
+        print("Searching for "+str(self.steps)+" steps.")  
+        search = MonteCarlo(lattice, model, temperature = 2.0)
+        structure = search.run(self.steps)
+        print("Lowest energy found: "+str(structure.energy))
+        if (isinstance(lattice, SquareLattice)):
+            plot_2d(structure, model)
+        else:
+            plot_3d(structure, model) 
         self.close()
-
 
     def on_buttonBox_rejected(self):
         self.close()
-
 
 if __name__ == "__main__":
     # create a pop up window to get the number of atoms
     app = QtGui.QApplication(sys.argv)
     dialog = SearchDialog()
     dialog.exec_()
-    if dialog.steps is None:
-        sys.exit()
-    # create the system and start the gui
-    # (note: since the application is already started we need to pass it to run_gui)
-    if ("Miyazawa" in dialog.model):
-        model = MJ(dialog.sequence)
-    else:
-        model = HP(dialog.sequence)
-    if ("Square" in dialog.lattice):
-        lattice = SquareLattice()
-    elif ("Diamond" in dialog.lattice):
-        lattice = DiamondLattice()
-    elif ("Cubic" in dialog.lattice):
-        lattice = CubicLattice()
-    elif ("BCC" in dialog.lattice):
-        lattice = BCCLattice()
-    elif ("FCC" in dialog.lattice):
-        lattice = FCCLattice()
-    print("Using "+dialog.model+" model on "+dialog.lattice+" lattice.")
-    print("Searching for "+str(dialog.steps)+" steps.")  
-    search = MonteCarlo(lattice, model, temperature = 2.0)
-    structure = search.run(100)
-    print("Lowest energy found: "+str(structure.energy))
-    if (isinstance(lattice, SquareLattice)):
-        plot_2d(structure, model)
-    else:
-        plot_3d(structure, model)        
-
