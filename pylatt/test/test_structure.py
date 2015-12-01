@@ -51,7 +51,7 @@ class StructureTest(unittest.TestCase):
                 [0,1,2],
                 [0,1,1],
                 [0,1,0]]
-        structure=LatticeStructure(lattice,coords, termini=[0,3,4,7])
+        structure=LatticeStructure(lattice,coords, chain_list=[4,4])
         structure.make_contact_map()
         self.assertEqual(4,len(structure.contact_map))
         self.assertEqual(0,len(structure.overlap_map))
@@ -60,15 +60,15 @@ class StructureTest(unittest.TestCase):
         self.assertEqual(1,structure.coordination_no[0])
         self.assertEqual(1,structure.coordination_no[1])
                 
-        def test_overlap(self):
-            lattice=CubicLattice()
-            coords=[[0,0,0],
-                    [0,0,1],
-                    [0,0,0]]
-            structure=LatticeStructure(lattice,coords)
-            structure.make_contact_map()
-            self.assertEqual(0,len(structure.overlap_map))
-            self.assertEqual(1,structure.num_chains)
+    def test_overlap(self):
+        lattice=CubicLattice()
+        coords=[[0,0,0],
+                [0,0,1],
+                [0,0,0]]
+        structure=LatticeStructure(lattice,coords)
+        structure.make_contact_map()
+        self.assertEqual(0,len(structure.overlap_map))
+        self.assertEqual(1,structure.num_chains)
 
 class FactoryTest(unittest.TestCase):
     
@@ -90,7 +90,7 @@ class FactoryTest(unittest.TestCase):
         self.assertEqual(0,len(structure.overlap_map))
     
     def test_multidomain(self):
-        factory=LatticeStructureFactory(20, CubicLattice(), termini=[0,9,10,19])
+        factory=LatticeStructureFactory(20, CubicLattice(), chain_list=[10,10])
         structure=factory.random_avoid()
         self.assertEqual(0,len(structure.overlap_map))
         self.assertEqual(2,structure.num_chains)

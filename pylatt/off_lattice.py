@@ -6,6 +6,7 @@ import numpy as np
 import urllib
 
 from pylatt.lattice_structure import LatticeStructure
+import pylatt.termini as termini
 
 def read_from_pdb(PDB_ID):
     '''Generate an OffLatticeStructure by downloading its properties
@@ -53,14 +54,8 @@ def read_from_iterable(pdb):
             if line[13:15]=="CA":
                 coords.append([x,y,z])
                 chains.append(chain_id)
-    termini = [0]
-    for i in range(0, len(chains)-1):
-        if chains[i] != chains[i+1]:
-            termini.append(i)
-            termini.append(i+1)
-    termini.append(len(chains)-1)
     coords = np.array(coords)
-    return OffLatticeStructure(coords, termini)
+    return OffLatticeStructure(coords, chainID = chains)
 
 def to_lattice(structure, lattice):
     '''Fit an OffLatticeStrucure to a lattice.
@@ -71,7 +66,7 @@ def to_lattice(structure, lattice):
     unit_coords -= unit_coords[0]
     lattice_structure = LatticeStructure(lattice,
                                          np.zeros((structure.natoms,3),dtype=int),
-                                         structure.termini)
+                                         chainID = structure.chainID)
     for i in range(1,structure.natoms):
         next_move = lattice_structure.free_moves(i-1)
         my_move = closest_move(next_move,unit_coords[i])
@@ -95,10 +90,11 @@ def closest_move(move_list, target):
                 
     
 class OffLatticeStructure:
-    def __init__(self, coords, termini):
+    def __init__(self, coords, chainID):
         self.coords = coords
         self.natoms = len(coords)
-        self.termini = termini
+        self.chainID = chainID
+        self.termini = termini.find(chainID)
                 
                 
                 

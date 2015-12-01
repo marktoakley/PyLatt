@@ -19,7 +19,7 @@ class CornerFlip:
         while trapped:
             trapped = False
             move_res = random.randint(1,structure.natoms-2)
-            if move_res in structure.termini:
+            if (structure.chainID[move_res-1]!=structure.chainID[move_res+1]):
                 trapped=True
             move1 = structure.free_moves(move_res-1)
             move2 = structure.free_moves(move_res+1)
@@ -33,7 +33,7 @@ class CornerFlip:
         my_move = random.choice(next_move)        
         coords = np.copy(structure.coords)
         coords[move_res] = my_move
-        new_structure = LatticeStructure(structure.lattice, coords, termini = structure.termini)
+        new_structure = LatticeStructure(structure.lattice, coords, chainID = structure.chainID)
         return new_structure
 
 class EndFlip:
@@ -54,7 +54,7 @@ class EndFlip:
         my_move = random.choice(next_move)        
         coords = np.copy(structure.coords)
         coords[move_res] = my_move
-        new_structure = LatticeStructure(structure.lattice, coords, termini = structure.termini)
+        new_structure = LatticeStructure(structure.lattice, coords, chainID = structure.chainID)
         return new_structure
 
 class Reptate:
@@ -83,6 +83,6 @@ class Reptate:
             coords[move_res] = my_move
             for i in range(end, move_res):
                 coords[i] = structure.coords[i+1]
-        new_structure = LatticeStructure(structure.lattice, coords, termini = structure.termini)
+        new_structure = LatticeStructure(structure.lattice, coords, chainID = structure.chainID)
         return new_structure
             

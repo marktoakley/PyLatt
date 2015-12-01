@@ -6,6 +6,7 @@ import numpy as np
 import random
 
 from pylatt.lattice import CubicLattice
+import pylatt.termini as termini
 
 class LatticeStructure:
     '''Stores the coordinates and properties of pylatt model proteins.
@@ -13,15 +14,25 @@ class LatticeStructure:
     To generate new LatticeStructures, use the LatticeStructureFactory
     rather than the constructor in this class.'''
     
-    def __init__(self,lattice,coords,termini=None):
+    def __init__(self,lattice,coords,chain_list=None,chainID=None):
         self.lattice = lattice
         self.coords = np.array(coords)
         self.natoms = len(coords)
-        if termini == None:
-            self.termini = [0, self.natoms -1]
+        if chainID is not None:
+            self.num_chains = len(set(chainID))
+            self.chainID = chainID
+        elif chain_list is None:
+            self.num_chains=1
+            self.chainID = self.natoms * [0]
         else:
-            self.termini = termini
-        self.num_chains = len(self.termini)/2
+            self.chainID = []
+            self.num_chains = len(chain_list)
+            curr_chain = 0
+            for i in chain_list:
+                for j in range(0, i):
+                    self.chainID.append(curr_chain)
+                curr_chain += 1
+        self.termini = termini.find(self.chainID)
         self.contact_map = None
         self.overlap_map = None
         self.coordination_no = None
@@ -35,26 +46,16 @@ class LatticeStructure:
         self.coordination_no = [0] * self.natoms
         #Look for distant pairs
         for i in range(0,self.natoms):
-            for j in range(i+2,self.natoms):
-                distance=self.get_distance2(i, j)
-                if distance == 0:
-                    self.overlap_map.append([i,j])
-                elif distance == self.lattice.contact_length:
-                    self.contact_map.append([i,j])
-                    self.coordination_no[i] += 1
-                    self.coordination_no[j] += 1
-        # Look for contacts between termini
-        for index in range(0, len(self.termini)-1):
-            i = self.termini[index]
-            j = self.termini[index +1]
-            if j - i ==1:
-                distance=self.get_distance2(i, j)
-                if distance == 0:
-                    self.overlap_map.append([i,j])
-                elif distance == self.lattice.contact_length:
-                    self.contact_map.append([i,j])
-                    self.coordination_no[i] += 1
-                    self.coordination_no[j] += 1
+            for j in range(i+1,self.natoms):
+                if ((j - i > 2) or
+                    (self.chainID[i] != self.chainID[j])):
+                    distance=self.get_distance2(i, j)
+                    if distance == 0:
+                        self.overlap_map.append([i,j])
+                    elif distance == self.lattice.contact_length:
+                        self.contact_map.append([i,j])
+                        self.coordination_no[i] += 1
+                        self.coordination_no[j] += 1
                 
         return self.contact_map
     
@@ -85,17 +86,17 @@ class LatticeStructure:
             for k in range(0,3):
                 distance += (self.coords[i,k]-self.coords[i+1,k])**2
             if distance != self.lattice.contact_length:
-                if not ((i in self.termini) and (i+1 in self.termini)): 
+                if (self.chainID[i] == self.chainID[i+1]): 
                     return True
         return False
                 
 class LatticeStructureFactory:
     '''Generate new LatticeStructures.'''
         
-    def __init__(self, natoms, lattice=CubicLattice(), termini=None):
+    def __init__(self, natoms, lattice=CubicLattice(), chain_list=None):
         self.lattice = lattice
         self.natoms = natoms
-        self.termini = termini
+        self.chain_list = chain_list
             
     def random(self):
         '''Generate a random pylatt structure.
@@ -105,7 +106,7 @@ class LatticeStructureFactory:
         coords = np.zeros((self.natoms,3),dtype=int)
         for i in range(1,self.natoms):
             coords[i] = np.add(coords[i-1],random.choice(self.lattice.get_moves(coords[i-1])))
-        structure=LatticeStructure(self.lattice,coords,termini =self.termini)
+        structure=LatticeStructure(self.lattice,coords,chain_list =self.chain_list)
         structure.make_contact_map()
         return structure
         
@@ -121,7 +122,7 @@ class LatticeStructureFactory:
         while trapped:
             trapped = False
             coords = np.zeros((self.natoms,3),dtype=int)
-            structure = LatticeStructure(self.lattice,coords,termini=self.termini)
+            structure = LatticeStructure(self.lattice,coords,chain_list=self.chain_list)
             for i in range(1,self.natoms):
                 next_move = structure.free_moves(i-1)
                 if len(next_move) == 0:

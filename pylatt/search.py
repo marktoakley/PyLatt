@@ -9,10 +9,10 @@ from pylatt.move import Reptate
 
 class RandomSearch:
     '''Repeatedly generates random structures.'''
-    def __init__(self, lattice, model, termini = None, first_structure = None):
+    def __init__(self, lattice, model, chain_list = None, first_structure = None):
         self.lattice = lattice
         self.model = model
-        self.factory = LatticeStructureFactory(self.model.natoms, self.lattice, termini = termini)
+        self.factory = LatticeStructureFactory(self.model.natoms, self.lattice, chain_list = chain_list)
         self.step=0
         if first_structure is None:
             self.best_structure = self.factory.random_avoid()
@@ -53,11 +53,11 @@ class MonteCarlo:
     first_structure: A bcga.lattice_structure object to start the search (A random one will be generated if none is supplied)
     temperature: The temperature used in the Metropolis test (units are dependent on the model being used)
     '''
-    def __init__(self, lattice, model, termini = None, first_structure = None, temperature = 1.0):
+    def __init__(self, lattice, model, chain_list = None, first_structure = None, temperature = 1.0):
         self.lattice = lattice
         self.model = model
         if first_structure is None:
-            self.last_structure = LatticeStructureFactory(self.model.natoms, self.lattice, termini = termini).random_avoid()
+            self.last_structure = LatticeStructureFactory(self.model.natoms, self.lattice, chain_list = chain_list).random_avoid()
         else:
             self.last_structure = first_structure
         self.model.calculate_energy(self.last_structure)

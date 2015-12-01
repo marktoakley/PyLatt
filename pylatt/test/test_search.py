@@ -39,10 +39,10 @@ class MonteCarloTest(unittest.TestCase):
         
     def test_multidomain(self):
         sequence = "HHHHPPHHHHHHHHPPHHHH"
-        termini = [0,9,10,19]
+        chain_list = [10,10]
         model = HP(sequence)
         lattice = SquareLattice()
-        search = MonteCarlo(lattice, model, termini)
+        search = MonteCarlo(lattice, model, chain_list = chain_list)
         search.run(10)
         self.assertEqual(10, search.step)
         energy1 = search.best_energy

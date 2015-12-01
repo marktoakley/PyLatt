@@ -15,5 +15,5 @@ latt_struc = to_lattice(structure, FCCLattice())
 
 print latt_struc.coords
 
-plot_3d(structure)
-plot_3d(latt_struc)
+plot_3d(structure).show()
+plot_3d(latt_struc).show()

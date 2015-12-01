@@ -38,10 +38,10 @@ class MoveTest(unittest.TestCase):
 class MultiDomainTest(unittest.TestCase):
     def setUp(self):
         sequence = "PHPPHPHHHPHHPHHHHH"
-        termini = [0, 8, 9, 17]
+        chain_list = [9, 9]
         self.factory = LatticeStructureFactory(len(sequence),
                                                lattice = CubicLattice(),
-                                               termini = termini)
+                                               chain_list = chain_list)
         
     def test_corner_flip(self):
         structure = self.factory.random_avoid()

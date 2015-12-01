@@ -12,8 +12,8 @@ from pylatt.search import MonteCarlo
 should contain the indices of the ends of each peptide chain. The
 example here sets up two 9-residue peptides.'''
 model = MJ("LMVGGVVIALMVGGVVIA")
-termini = [0,8,9,17]
+chain_list = [9, 9]
 lattice = FCCLattice()
-search = MonteCarlo(lattice, model, termini)
+search = MonteCarlo(lattice, model, chain_list)
 structure = search.run(100)
 plot_3d(structure, model).show()
