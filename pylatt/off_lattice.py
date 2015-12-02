@@ -72,6 +72,7 @@ def to_lattice(structure, lattice):
         my_move = closest_move(next_move,unit_coords[i])
         lattice_structure.coords[i] = my_move
     lattice_structure.make_contact_map()
+    lattice_structure.off_latt_coords = unit_coords
     return lattice_structure
     
 def closest_move(move_list, target):
