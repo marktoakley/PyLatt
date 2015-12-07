@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/mark/workspace/pylattice/pylatt/gui/_search_dialog.ui'
 #
-# Created: Mon Dec  7 22:50:10 2015
+# Created: Mon Dec  7 23:18:15 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -91,7 +91,7 @@ class Ui_DialogSearchSetup(object):
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
 
         self.retranslateUi(DialogSearchSetup)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(DialogSearchSetup)
 
     def retranslateUi(self, DialogSearchSetup):
