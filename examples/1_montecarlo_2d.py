@@ -6,7 +6,7 @@ search on a two-dimensional square lattice.
 '''
 from pylatt.model import HP
 from pylatt.lattice import SquareLattice
-from pylatt.plotter import plot_2d
+from pylatt.plotter import display_2d
 from pylatt.search import MonteCarlo
 
 ''' First choose a lattice. Here, we will use the two-dimensional
@@ -22,5 +22,5 @@ search = MonteCarlo(lattice, model, temperature = 2.0)
 structure found. The energy of this structure is in structure.energy.'''
 structure = search.run(100)
 print("Lowest energy found: ", structure.energy)
-'''To visualise this structure, use plot_2d.'''
-plot_2d(structure, model).show()
+'''To visualise this structure, use display_2d.'''
+display_2d(structure, model)

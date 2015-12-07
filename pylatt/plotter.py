@@ -7,55 +7,29 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
-def plot_2d(structure, model = None):
+def display_2d(structure, model = None):
     '''Display a 2D representation of a structure.
     
     Parameters
     ----------
     structure: A LatticeStructure
     model(optional): a Potential object (used to colour provide coloured residue types). ''' 
-    x = structure.coords[:,0]
-    y = structure.coords[:,1]
-    plot_range = max ((max(x) - min(x)),
-                          (max(y) - min(y)))
-    xmin = float((max(x)+min(x)-plot_range))/2
-    ymin = float((max(y)+min(y)-plot_range))/2
-    plt.figure(figsize=(5,5))
-    #plt.title("Energy = "+str(structure.energy))
-    plt.xlim(xmin-.5, xmin+plot_range+.5)
-    plt.ylim(ymin-.5, ymin+plot_range+.5)
-    for i in range(0, len(structure.termini)//2):
-        start = structure.termini[2*i]
-        end = structure.termini[2*i+1]+1
-        x = structure.coords[start:end,0]
-        y = structure.coords[start:end,1]
-        if model is None:
-            colours = [0] *(end-start)
-        else:
-            colours = model.isequence[start:end]
-        plt.scatter(x,y,s=100,c=colours)
-        plt.plot(x,y)
-
-    #plt.show()
-    return plt
+    fig = plt.figure(figsize=(5,5))
+    plot_2d(structure, fig, model)
+    plt.show()
     
-def plot_3d(structure, model = None):
+def display_3d(structure, model = None):
     '''Display a 3D representation of a structure.
     
     Parameters
     ----------
     structure: A LatticeStructure
-    model(optional): a Potential object (used to colour provide coloured residue types).''' 
-    coords=structure.coords
-    termini=structure.termini
-    if model is None:
-        isequence = [0]*len(coords)
-    else:
-        isequence = model.isequence
+    model(optional): a Potential object (used to colour provide coloured residue types). ''' 
+    fig = plt.figure(figsize=(5,5))
+    plot_3d(structure, fig, model)
+    plt.show()
     
-    return _make_plot(coords, termini, isequence)
-
-def plot_fit(structure):
+def display_fit(structure):
     '''Compare a fitted lattice structure to its parent off-lattice structure.
         
     Parameters
@@ -64,23 +38,59 @@ def plot_fit(structure):
     coords = np.concatenate((structure.coords, structure.off_latt_coords), axis=0)
     termini = structure.termini+[x+len(structure.coords) for x in structure.termini]
     isequence = [0] * len(coords)
-    return _make_plot(coords, termini, isequence)
-
-def _make_plot(coords, termini, isequence):
-    fig = plt.figure()
+    fig = plt.figure(figsize=(5,5))
     ax = fig.add_subplot(111, projection='3d')
-    xs = coords[:,0]
-    ys = coords[:,1]
-    zs = coords[:,2]
-    plot_range = max ((max(xs) - min(xs)),
-                      (max(ys) - min(ys)),
-                      (max(zs) - min(zs)))
-    xmin = float((max(xs)+min(xs)-plot_range))/2
-    ymin = float((max(ys)+min(ys)-plot_range))/2
-    zmin = float((max(zs)+min(zs)-plot_range))/2
-    ax.set_xlim3d((xmin-.5), (xmin+plot_range+.5))
-    ax.set_ylim3d((ymin-.5), (ymin+plot_range+.5))
-    ax.set_zlim3d((zmin-.5), (zmin+plot_range+.5))
+    ax.clear()
+    _make_plot(coords, termini, isequence, ax)
+    plt.show()
+
+
+def plot_2d(structure, figure, model = None):
+    '''Add a 2D representation of a structure to a matplotlib figure.'''
+    ax = figure.add_subplot(111)
+    ax.clear()
+    #fig = plt.figure(figsize=(5,5))
+    #plt.title("Energy = "+str(structure.energy))
+    limits = get_range(structure.coords)
+    plt.xlim(limits[0][0], limits[0][1])
+    plt.ylim(limits[1][0], limits[1][1])
+    
+    for i in range(0, len(structure.termini)//2):
+        start = structure.termini[2*i]
+        end = structure.termini[2*i+1]+1
+        x = structure.coords[start:end,0]
+        y = structure.coords[start:end,1]
+    if model is None:
+        colours = [0] *(end-start)
+    else:
+        colours = model.isequence[start:end]
+    ax.scatter(x,y,s=100,c=colours)
+    ax.plot(x,y)
+    
+    return ax
+
+
+def plot_3d(structure, figure, model = None):
+    '''Add a 3D representation of a structure to a matplotlib figure.'''
+    ax = figure.add_subplot(111, projection='3d')
+    ax.clear()
+    coords=structure.coords
+    termini=structure.termini
+    if model is None:
+        isequence = [0]*len(coords)
+    else:
+        isequence = model.isequence
+    
+    ax = _make_plot(coords, termini, isequence, ax)
+    return ax
+
+
+
+def _make_plot(coords, termini, isequence, ax):
+    limits = get_range(coords)
+    ax.set_xlim3d(limits[0][0], limits[0][1])
+    ax.set_ylim3d(limits[1][0], limits[1][1])
+    ax.set_zlim3d(limits[2][0], limits[2][1])
     ax.set_axis_off()
     for i in range(0, len(termini)//2):
         start = termini[2*i]
@@ -93,4 +103,21 @@ def _make_plot(coords, termini, isequence):
         ax.plot(xs,ys,zs)
     #plt.title("Energy = "+str(structure.energy))
     #plt.show()
-    return plt
+    return ax
+
+def get_range(coords):
+        xs = coords[:,0]
+        ys = coords[:,1]
+        zs = coords[:,2]
+        plot_range = max ((max(xs) - min(xs)),
+                          (max(ys) - min(ys)),
+                          (max(zs) - min(zs)))
+        xmin = float((max(xs)+min(xs)-plot_range))/2 -.5
+        xmax = xmin+plot_range+1.
+        ymin = float((max(ys)+min(ys)-plot_range))/2 -.5
+        ymax = ymin+plot_range+1.
+        zmin = float((max(zs)+min(zs)-plot_range))/2 -.5
+        zmax = zmin+plot_range+1.
+        
+        return[[xmin, xmax], [ymin, ymax], [zmin, zmax]]
+    

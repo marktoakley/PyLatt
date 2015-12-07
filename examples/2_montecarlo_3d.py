@@ -5,7 +5,7 @@ This example demonstrates MonteCarlo searches on a 3D lattice.
 '''
 from pylatt.model import MJ
 from pylatt.lattice import CubicLattice
-from pylatt.plotter import plot_3d
+from pylatt.plotter import display_3d
 from pylatt.search import MonteCarlo
 
 '''Choose a 3D lattice (Diamond, Cubic, BCC or FCC)'''
@@ -18,5 +18,5 @@ search = MonteCarlo(lattice, model)
 structure = search.run(1000)
 print "Lowest energy found: ", structure.energy
 '''Visualise the best structure ising plot_3d.'''
-plot_3d(structure, model).show()
+display_3d(structure, model)
 
