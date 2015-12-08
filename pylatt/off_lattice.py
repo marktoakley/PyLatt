@@ -88,7 +88,12 @@ def closest_move(move_list, target):
             best = move
             min_distance = distance
     return best
-                
+
+def centre_of_mass(structure):
+    com = []
+    for axis in range(0, 3):
+        com.append(np.mean(structure.coords[:,axis]))
+    return com      
     
 class OffLatticeStructure:
     def __init__(self, coords, chainID):
