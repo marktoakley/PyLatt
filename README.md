@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/marktoakley/PyLatt.svg?branch=master
+    :target: https://travis-ci.org/marktoakley/PyLatt
+
 PyLattice
 =========
 
