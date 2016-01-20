@@ -1,7 +1,9 @@
 .. image:: https://travis-ci.org/marktoakley/PyLatt.svg?branch=master
     :target: https://travis-ci.org/marktoakley/PyLatt
 
-.. image:: https://coveralls.io/repos/github/marktoakley/PyLatt/badge.svg?branch=master :target: https://coveralls.io/github/marktoakley/PyLatt?branch=master
+.. image:: https://coveralls.io/repos/github/marktoakley/PyLatt/badge.svg?branch=master
+    :target: https://coveralls.io/github/marktoakley/PyLatt?branch=master
+
 
 PyLattice
 =========
