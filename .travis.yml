@@ -4,9 +4,12 @@ python:
     - 3.4
 
 install:  
+  - pip install nose
+  - pip install coverage
   - pip install python-coveralls
 
 script:
+  - python setup.py install
   - nosetests -v --with-coverage pylatt
 
 after_success:
