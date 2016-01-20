@@ -90,47 +90,40 @@ class LatticeStructure:
                     return True
         return False
                 
-class LatticeStructureFactory:
-    '''Generate new LatticeStructures.'''
-        
-    def __init__(self, natoms, lattice=CubicLattice(), chain_list=None):
-        self.lattice = lattice
-        self.natoms = natoms
-        self.chain_list = chain_list
             
-    def random(self):
-        '''Generate a random pylatt structure.
+# def random(natoms, lattice=CubicLattice(), chain_list=None):
+#     '''Generate a random pylatt structure.
+#     
+#     This is not self-avoiding and can have overlapping beads.
+#     Using random_avoid is almost always a better choice.'''
+#     coords = np.zeros((natoms,3),dtype=int)
+#     for i in range(1,natoms):
+#         coords[i] = np.add(coords[i-1],random.choice(lattice.get_moves(coords[i-1])))
+#     structure=LatticeStructure(lattice,coords,chain_list =chain_list)
+#     structure.make_contact_map()
+#     return structure
         
-        This is not self-avoiding and can have overlapping beads.
-        Using random_avoid is almost always a better choice.'''
-        coords = np.zeros((self.natoms,3),dtype=int)
-        for i in range(1,self.natoms):
-            coords[i] = np.add(coords[i-1],random.choice(self.lattice.get_moves(coords[i-1])))
-        structure=LatticeStructure(self.lattice,coords,chain_list =self.chain_list)
+def random_avoid(natoms, lattice=CubicLattice(), chain_list=None):
+    '''Generate a self-avoiding random pylatt structure.
+    
+    Notes
+    -----
+    In low-coordinate lattices, traps with no free moves become
+    more likely. This method repeatedly generates random structures
+    until it finds one that is not trapped.'''
+    trapped=True
+    while trapped:
+        trapped = False
+        coords = np.zeros((natoms,3),dtype=int)
+        structure = LatticeStructure(lattice,coords,chain_list=chain_list)
+        for i in range(1,natoms):
+            next_move = structure.free_moves(i-1)
+            if len(next_move) == 0:
+                trapped = True
+                break
+            my_move=random.choice(next_move)
+            structure.coords[i] = my_move
         structure.make_contact_map()
-        return structure
-        
-    def random_avoid(self):
-        '''Generate a self-avoiding random pylatt structure.
-        
-        Notes
-        -----
-        In low-coordinate lattices, traps with no free moves become
-        more likely. This method repeatedly generates random structures
-        until it finds one that is not trapped.'''
-        trapped=True
-        while trapped:
-            trapped = False
-            coords = np.zeros((self.natoms,3),dtype=int)
-            structure = LatticeStructure(self.lattice,coords,chain_list=self.chain_list)
-            for i in range(1,self.natoms):
-                next_move = structure.free_moves(i-1)
-                if len(next_move) == 0:
-                    trapped = True
-                    break
-                my_move=random.choice(next_move)
-                structure.coords[i] = my_move
-            structure.make_contact_map()
-        return structure
+    return structure
                 
             

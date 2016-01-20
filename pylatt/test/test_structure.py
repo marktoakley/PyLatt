@@ -3,7 +3,7 @@
 '''
 import unittest
 from pylatt.lattice import CubicLattice, SquareLattice
-from pylatt.lattice_structure import LatticeStructure,LatticeStructureFactory
+from pylatt.lattice_structure import LatticeStructure,random_avoid
 
 class StructureTest(unittest.TestCase):
     
@@ -71,27 +71,18 @@ class StructureTest(unittest.TestCase):
         self.assertEqual(1,structure.num_chains)
 
 class FactoryTest(unittest.TestCase):
-    
-    def test_random(self):
-        factory=LatticeStructureFactory(10 ,CubicLattice())
-        structure=factory.random()
-        self.assertEqual(10,structure.natoms)
-        self.assertEqual(1,structure.num_chains)
         
     def test_avoid(self):
-        factory=LatticeStructureFactory(100, CubicLattice())
-        structure=factory.random_avoid()
+        structure=random_avoid(100, CubicLattice())
         self.assertEqual(0,len(structure.overlap_map))
         self.assertEqual(1,structure.num_chains)
     
     def test_trapping(self):
-        factory = LatticeStructureFactory(150, SquareLattice())
-        structure=factory.random_avoid()
+        structure=random_avoid(150, SquareLattice())
         self.assertEqual(0,len(structure.overlap_map))
     
     def test_multidomain(self):
-        factory=LatticeStructureFactory(20, CubicLattice(), chain_list=[10,10])
-        structure=factory.random_avoid()
+        structure=random_avoid(20, CubicLattice(), chain_list=[10,10])
         self.assertEqual(0,len(structure.overlap_map))
         self.assertEqual(2,structure.num_chains)
         

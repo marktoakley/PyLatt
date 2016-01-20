@@ -4,18 +4,17 @@
 from math import exp
 import random
 
-from pylatt.lattice_structure import LatticeStructureFactory
 from pylatt.move import Reptate
+from pylatt.lattice_structure import random_avoid
 
 class RandomSearch:
     '''Repeatedly generates random structures.'''
     def __init__(self, lattice, model, chain_list = None, first_structure = None):
         self.lattice = lattice
         self.model = model
-        self.factory = LatticeStructureFactory(self.model.natoms, self.lattice, chain_list = chain_list)
         self.step=0
         if first_structure is None:
-            self.best_structure = self.factory.random_avoid()
+            self.best_structure = random_avoid(self.model.natoms, self.lattice, chain_list = chain_list)
         else:
             self.best_structure =first_structure
         self.best_energy = self.model.calculate_energy(self.best_structure)
@@ -32,7 +31,7 @@ class RandomSearch:
         the best structure found
         '''
         for self.step in range (self.step +1, self.step + steps + 1):
-            structure=self.factory.random_avoid()
+            structure=random_avoid(self.model.natoms, self.lattice)
             energy = self.model.calculate_energy(structure)
             structure.energy = energy
             if energy < self.best_energy:
@@ -57,7 +56,7 @@ class MonteCarlo:
         self.lattice = lattice
         self.model = model
         if first_structure is None:
-            self.last_structure = LatticeStructureFactory(self.model.natoms, self.lattice, chain_list = chain_list).random_avoid()
+            self.last_structure = random_avoid(self.model.natoms, self.lattice, chain_list = chain_list)
         else:
             self.last_structure = first_structure
         self.model.calculate_energy(self.last_structure)
