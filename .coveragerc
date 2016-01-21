@@ -1,2 +1,6 @@
 [run]
 source = pylatt
+[report]
+omit =
+    */python?.?/*
+    */site-packages/nose/*
