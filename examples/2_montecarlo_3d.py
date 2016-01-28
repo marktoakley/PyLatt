@@ -18,5 +18,5 @@ search = MonteCarlo(lattice, model)
 structure = search.run(1000)
 print "Lowest energy found: ", structure.energy
 '''Visualise the best structure ising plot_3d.'''
-display_3d(structure, model)
+display_3d(structure)
 

@@ -29,9 +29,9 @@ class DisplayForm(QtGui.QDialog):
         structure = self.search.run(self.steps)
         self.ui.log.append("Lowest energy found: "+str(structure.energy))
         if (isinstance(structure.lattice, SquareLattice)):
-            plot_2d(structure, self.ui.widget.canvas.fig, self.search.model)
+            plot_2d(structure, self.ui.widget.canvas.fig)
         else:
-            plot_3d(structure, self.ui.widget.canvas.fig, self.search.model)
+            plot_3d(structure, self.ui.widget.canvas.fig)
         self.ui.widget.canvas.draw()
 
 class SetUpForm(QtGui.QDialog):

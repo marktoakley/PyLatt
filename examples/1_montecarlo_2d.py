@@ -23,4 +23,4 @@ structure found. The energy of this structure is in structure.energy.'''
 structure = search.run(100)
 print("Lowest energy found: ", structure.energy)
 '''To visualise this structure, use display_2d.'''
-display_2d(structure, model)
+display_2d(structure)

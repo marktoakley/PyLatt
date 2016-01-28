@@ -14,7 +14,7 @@ class RandomSearch:
         self.model = model
         self.step=0
         if first_structure is None:
-            self.best_structure = random_avoid(self.model.natoms, self.lattice, chain_list = chain_list)
+            self.best_structure = random_avoid(self.model.natoms, self.lattice, model = model, chain_list = chain_list)
         else:
             self.best_structure =first_structure
         self.best_energy = self.model.calculate_energy(self.best_structure)
@@ -31,7 +31,7 @@ class RandomSearch:
         the best structure found
         '''
         for self.step in range (self.step +1, self.step + steps + 1):
-            structure=random_avoid(self.model.natoms, self.lattice)
+            structure=random_avoid(self.model.natoms, self.lattice, model = self.model)
             energy = self.model.calculate_energy(structure)
             structure.energy = energy
             if energy < self.best_energy:
@@ -56,7 +56,7 @@ class MonteCarlo:
         self.lattice = lattice
         self.model = model
         if first_structure is None:
-            self.last_structure = random_avoid(self.model.natoms, self.lattice, chain_list = chain_list)
+            self.last_structure = random_avoid(self.model.natoms, self.lattice, model = model, chain_list = chain_list)
         else:
             self.last_structure = first_structure
         self.model.calculate_energy(self.last_structure)

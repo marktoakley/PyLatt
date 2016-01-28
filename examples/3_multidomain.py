@@ -16,4 +16,4 @@ chain_list = [9, 9]
 lattice = FCCLattice()
 search = MonteCarlo(lattice, model, chain_list)
 structure = search.run(100)
-display_3d(structure, model)
+display_3d(structure)

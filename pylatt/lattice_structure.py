@@ -14,10 +14,11 @@ class LatticeStructure:
     To generate new LatticeStructures, use the LatticeStructureFactory
     rather than the constructor in this class.'''
     
-    def __init__(self,lattice,coords,chain_list=None,chainID=None):
+    def __init__(self,lattice,coords,model=None,chain_list=None,chainID=None,):
         self.lattice = lattice
         self.coords = np.array(coords)
         self.natoms = len(coords)
+        self.model=model
         if chainID is not None:
             self.num_chains = len(set(chainID))
             self.chainID = chainID
@@ -103,7 +104,7 @@ class LatticeStructure:
 #     structure.make_contact_map()
 #     return structure
         
-def random_avoid(natoms, lattice=CubicLattice(), chain_list=None):
+def random_avoid(natoms, lattice=CubicLattice(), model = None, chain_list=None):
     '''Generate a self-avoiding random pylatt structure.
     
     Notes
@@ -115,7 +116,7 @@ def random_avoid(natoms, lattice=CubicLattice(), chain_list=None):
     while trapped:
         trapped = False
         coords = np.zeros((natoms,3),dtype=int)
-        structure = LatticeStructure(lattice,coords,chain_list=chain_list)
+        structure = LatticeStructure(lattice,coords,model=model,chain_list=chain_list)
         for i in range(1,natoms):
             next_move = structure.free_moves(i-1)
             if len(next_move) == 0:

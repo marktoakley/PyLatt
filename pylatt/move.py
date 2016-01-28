@@ -33,7 +33,7 @@ class CornerFlip:
         my_move = random.choice(next_move)        
         coords = np.copy(structure.coords)
         coords[move_res] = my_move
-        new_structure = LatticeStructure(structure.lattice, coords, chainID = structure.chainID)
+        new_structure = LatticeStructure(structure.lattice, coords, model = structure.model, chainID = structure.chainID)
         return new_structure
 
 class EndFlip:
@@ -54,7 +54,7 @@ class EndFlip:
         my_move = random.choice(next_move)        
         coords = np.copy(structure.coords)
         coords[move_res] = my_move
-        new_structure = LatticeStructure(structure.lattice, coords, chainID = structure.chainID)
+        new_structure = LatticeStructure(structure.lattice, coords, model = structure.model, chainID = structure.chainID)
         return new_structure
 
 class Reptate:
@@ -83,6 +83,6 @@ class Reptate:
             coords[move_res] = my_move
             for i in range(end, move_res):
                 coords[i] = structure.coords[i+1]
-        new_structure = LatticeStructure(structure.lattice, coords, chainID = structure.chainID)
+        new_structure = LatticeStructure(structure.lattice, coords, model = structure.model, chainID = structure.chainID)
         return new_structure
             

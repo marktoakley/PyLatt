@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
-def display_2d(structure, model = None):
+def display_2d(structure):
     '''Display a 2D representation of a structure.
     
     Parameters
@@ -15,10 +15,10 @@ def display_2d(structure, model = None):
     structure: A LatticeStructure
     model(optional): a Potential object (used to colour provide coloured residue types). ''' 
     fig = plt.figure(figsize=(5,5))
-    plot_2d(structure, fig, model)
+    plot_2d(structure, fig)
     plt.show()
     
-def display_3d(structure, model = None):
+def display_3d(structure):
     '''Display a 3D representation of a structure.
     
     Parameters
@@ -26,7 +26,7 @@ def display_3d(structure, model = None):
     structure: A LatticeStructure
     model(optional): a Potential object (used to colour provide coloured residue types). ''' 
     fig = plt.figure(figsize=(5,5))
-    plot_3d(structure, fig, model)
+    plot_3d(structure, fig)
     plt.show()
     
 def display_fit(structure):
@@ -45,7 +45,7 @@ def display_fit(structure):
     plt.show()
 
 
-def plot_2d(structure, figure, model = None):
+def plot_2d(structure, figure):
     '''Add a 2D representation of a structure to a matplotlib figure.'''
     ax = figure.add_subplot(111)
     ax.clear()
@@ -60,26 +60,26 @@ def plot_2d(structure, figure, model = None):
         end = structure.termini[2*i+1]+1
         x = structure.coords[start:end,0]
         y = structure.coords[start:end,1]
-    if model is None:
+    if structure.model is None:
         colours = [0] *(end-start)
     else:
-        colours = model.isequence[start:end]
+        colours = structure.model.isequence[start:end]
     ax.scatter(x,y,s=100,c=colours)
     ax.plot(x,y)
     
     return ax
 
 
-def plot_3d(structure, figure, model = None):
+def plot_3d(structure, figure):
     '''Add a 3D representation of a structure to a matplotlib figure.'''
     ax = figure.add_subplot(111, projection='3d')
     ax.clear()
     coords=structure.coords
     termini=structure.termini
-    if model is None:
+    if structure.model is None:
         isequence = [0]*len(coords)
     else:
-        isequence = model.isequence
+        isequence = structure.model.isequence
     
     ax = _make_plot(coords, termini, isequence, ax)
     return ax
