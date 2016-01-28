@@ -14,13 +14,6 @@ class GUIForm(QtGui.QDialog):
         self.ui.setupUi(self)
         QtCore.QObject.connect(self.ui.pushButton, QtCore.SIGNAL('clicked()'), self.run)
 
-    def PlotFunc(self):
-        randomNumbers = random.sample(range(0, 10), 10)
-        self.ui.widget.canvas.ax.clear()
-        self.ui.widget.canvas.ax.plot(randomNumbers)
-        self.ui.widget.canvas.draw()
-        
-
     def run(self):
         self.sequence = self.ui.lineEdit_sequence.text()
         self.steps = int(self.ui.lineEdit_steps.text())
