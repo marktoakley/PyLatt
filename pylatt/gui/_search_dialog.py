@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/mark/workspace/pylattice/pylatt/gui/_search_dialog.ui'
+# Form implementation generated from reading ui file '_search_dialog.ui'
 #
-# Created: Mon Dec  7 23:18:15 2015
+# Created: Thu Jan 28 17:07:53 2016
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_DialogSearchSetup(object):
     def setupUi(self, DialogSearchSetup):
         DialogSearchSetup.setObjectName(_fromUtf8("DialogSearchSetup"))
-        DialogSearchSetup.resize(888, 470)
+        DialogSearchSetup.resize(325, 324)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -34,7 +34,7 @@ class Ui_DialogSearchSetup(object):
         DialogSearchSetup.setSizePolicy(sizePolicy)
         DialogSearchSetup.setModal(True)
         self.pushButton = QtGui.QPushButton(DialogSearchSetup)
-        self.pushButton.setGeometry(QtCore.QRect(130, 330, 98, 27))
+        self.pushButton.setGeometry(QtCore.QRect(110, 280, 98, 27))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.gridLayoutWidget = QtGui.QWidget(DialogSearchSetup)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 20, 301, 241))
@@ -74,24 +74,8 @@ class Ui_DialogSearchSetup(object):
         self.lineEdit_steps = QtGui.QLineEdit(self.gridLayoutWidget)
         self.lineEdit_steps.setObjectName(_fromUtf8("lineEdit_steps"))
         self.gridLayout.addWidget(self.lineEdit_steps, 4, 1, 1, 1)
-        self.tabWidget = QtGui.QTabWidget(DialogSearchSetup)
-        self.tabWidget.setGeometry(QtCore.QRect(330, 19, 551, 441))
-        self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
-        self.tab = QtGui.QWidget()
-        self.tab.setObjectName(_fromUtf8("tab"))
-        self.widget = matplotlibWidget(self.tab)
-        self.widget.setGeometry(QtCore.QRect(10, 10, 521, 391))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.tabWidget.addTab(self.tab, _fromUtf8(""))
-        self.tab_2 = QtGui.QWidget()
-        self.tab_2.setObjectName(_fromUtf8("tab_2"))
-        self.log = QtGui.QTextEdit(self.tab_2)
-        self.log.setGeometry(QtCore.QRect(13, 7, 521, 391))
-        self.log.setObjectName(_fromUtf8("log"))
-        self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
 
         self.retranslateUi(DialogSearchSetup)
-        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(DialogSearchSetup)
 
     def retranslateUi(self, DialogSearchSetup):
@@ -110,7 +94,4 @@ class Ui_DialogSearchSetup(object):
         self.comboBox_lattice.setItemText(3, _translate("DialogSearchSetup", "BCC", None))
         self.comboBox_lattice.setItemText(4, _translate("DialogSearchSetup", "FCC", None))
         self.lineEdit_steps.setText(_translate("DialogSearchSetup", "100", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("DialogSearchSetup", "Structure", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("DialogSearchSetup", "Log", None))
 
-from matplotlibWidget import matplotlibWidget
