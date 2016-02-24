@@ -61,10 +61,17 @@ class LatticeStructure:
         return self.contact_map
     
     def get_distance2(self, i, j):
-        '''Return the square of the distance between residues with indices i and j.'''
+        '''Return the square of the distance between residues with indices i and j.
+        If the distance is larger than the lattice contact distance, an arbitrary
+        large value is returned.'''
         distance=0
         for k in range(0,3):
             distance += (self.coords[i,k]-self.coords[j,k])**2
+            # Stop looping through axes as soon as it's clear the residues are
+            # not in contact.
+            if (distance > self.lattice.contact_length):
+                distance = self.lattice.contact_length*2
+                break
         return distance
     
     def free_moves(self, index):
