@@ -1,13 +1,23 @@
 '''
+Search Algorithms
 @author: Mark Oakley
 '''
 from math import exp
 import random
+from abc import ABCMeta, abstractmethod
 
 from pylatt.move import Reptate
 from pylatt.lattice_structure import random_avoid
 
-class RandomSearch:
+class Search:
+    '''Superclass for search algorithms.'''
+    __metaclass__ = ABCMeta
+    
+    @abstractmethod
+    def run(self, steps):
+        '''Perform a search.'''
+        
+class RandomSearch(Search):
     '''Repeatedly generates random structures.'''
     def __init__(self, lattice, model, chain_list = None, first_structure = None):
         self.lattice = lattice
@@ -39,7 +49,7 @@ class RandomSearch:
                 self.best_structure = structure
         return self.best_structure
     
-class MonteCarlo:
+class MonteCarlo(Search):
     '''Perform a Metropolis Monte Carlo search.
     
     Parameters

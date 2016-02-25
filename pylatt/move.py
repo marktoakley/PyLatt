@@ -1,5 +1,5 @@
 '''
-Move by reptation.
+Classes of moves for Monte Carlo searches
 
 Notes
 -----
@@ -10,9 +10,21 @@ superclass.
 '''
 import random
 import numpy as np
+from abc import ABCMeta, abstractmethod
+
 from pylatt.lattice_structure import LatticeStructure
 
-class CornerFlip:
+class Move:
+    '''Abstract superclass for moves.'''
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def move(self,structure):
+        '''Take a generate a new LatticeStructure by performing one step from
+        an existing LatticeStructure.'''
+        pass
+    
+class CornerFlip(Move):
     
     def move(self, structure):
         trapped = True
@@ -36,7 +48,7 @@ class CornerFlip:
         new_structure = LatticeStructure(structure.lattice, coords, model = structure.model, chainID = structure.chainID)
         return new_structure
 
-class EndFlip:
+class EndFlip(Move):
     
     def move(self, structure):
         trapped = True
@@ -57,7 +69,7 @@ class EndFlip:
         new_structure = LatticeStructure(structure.lattice, coords, model = structure.model, chainID = structure.chainID)
         return new_structure
 
-class Reptate:
+class Reptate(Move):
     '''Move by reptation.'''
     
     def move(self, structure):

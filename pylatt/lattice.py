@@ -9,10 +9,12 @@ class Lattice():
     __metaclass__ = ABCMeta
     
     @abstractmethod
-    def get_moves(self,point): pass
-    '''Get a list of the moves accessible from a given pylatt point.
-    Parameters:
-    point: '''
+    def get_moves(self,point):
+        '''Get a list of the moves accessible from a given pylatt point.
+        Parameters:
+        -----------
+        point: '''
+        pass
 
 class CubicLattice(Lattice):
     '''A 6-coordinate cubic pylatt.'''
