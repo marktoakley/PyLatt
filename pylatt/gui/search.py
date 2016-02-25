@@ -33,6 +33,8 @@ class DisplayForm(QtGui.QDialog):
         else:
             plot_3d(structure, self.ui.widget.canvas.fig)
         self.ui.widget.canvas.draw()
+        plot_contact_map(structure, self.ui.widget_2.canvas.fig)
+        self.ui.widget_2.canvas.draw()
 
 class SetUpForm(QtGui.QDialog):
 
