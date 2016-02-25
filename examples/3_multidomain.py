@@ -5,8 +5,9 @@ A Monte Carlo search on a multidomain protein.
 '''
 from pylatt.model import MJ
 from pylatt.lattice import FCCLattice
-from pylatt.plotter import display_3d
+from pylatt.plotter import plot_3d
 from pylatt.search import MonteCarlo
+import matplotlib.pyplot as plt
 
 '''To search a multidomain protein, set up a termini list. This
 should contain the indices of the ends of each peptide chain. The
@@ -16,4 +17,5 @@ chain_list = [9, 9]
 lattice = FCCLattice()
 search = MonteCarlo(lattice, model, chain_list)
 structure = search.run(100)
-display_3d(structure)
+plot_3d(structure)
+plt.show()
