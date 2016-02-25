@@ -10,8 +10,9 @@ class Potential():
     __metaclass__ = ABCMeta
         
     @abstractmethod
-    def calculate_energy(self, structure): pass
-    '''Calculate the energy of a LatticeStructure.'''
+    def calculate_energy(self, structure):
+        '''Calculate the energy of a LatticeStructure.'''
+        pass
     
     def calculate_pair_energy(self,structure):
         '''Calculate the pairwise energy component for a LatticeStructure.'''

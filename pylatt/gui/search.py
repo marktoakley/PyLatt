@@ -1,10 +1,10 @@
 import sys
 from _search_dialog import *
 
-from pylatt.model import *
-from pylatt.lattice import *
-from pylatt.search import *
-from pylatt.plotter import *
+from pylatt.model import HP, MJ
+from pylatt.lattice import SquareLattice, CubicLattice, DiamondLattice, FCCLattice, BCCLattice
+from pylatt.search import MonteCarlo
+from pylatt.plotter import plot_2d, plot_3d, plot_contact_map
 from pylatt.gui._search_output import Ui_DialogSearchDisplay
 
 class DisplayForm(QtGui.QDialog):
@@ -18,7 +18,6 @@ class DisplayForm(QtGui.QDialog):
         QtCore.QObject.connect(self.ui.button_run, QtCore.SIGNAL('clicked()'), self.run)
         if (search != None):
             self.search = search
-            self.search.run
     
     def set_up(self):
         if self.window2 is None:

@@ -95,7 +95,7 @@ def centre_of_mass(structure):
         com.append(np.mean(structure.coords[:,axis]))
     return com      
     
-class OffLatticeStructure:
+class OffLatticeStructure(object):
     def __init__(self, coords, chainID):
         self.coords = coords
         self.natoms = len(coords)

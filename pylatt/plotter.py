@@ -124,17 +124,17 @@ def _make_plot(coords, termini, isequence, ax):
     return ax
 
 def get_range(coords):
-        xs = coords[:,0]
-        ys = coords[:,1]
-        zs = coords[:,2]
-        plot_range = max ((max(xs) - min(xs)),
-                          (max(ys) - min(ys)),
-                          (max(zs) - min(zs)))
-        xmin = float((max(xs)+min(xs)-plot_range))/2 -.5
-        xmax = xmin+plot_range+1.
-        ymin = float((max(ys)+min(ys)-plot_range))/2 -.5
-        ymax = ymin+plot_range+1.
-        zmin = float((max(zs)+min(zs)-plot_range))/2 -.5
-        zmax = zmin+plot_range+1.
-        
-        return[[xmin, xmax], [ymin, ymax], [zmin, zmax]]
+    xs = coords[:,0]
+    ys = coords[:,1]
+    zs = coords[:,2]
+    plot_range = max ((max(xs) - min(xs)),
+                      (max(ys) - min(ys)),
+                      (max(zs) - min(zs)))
+    xmin = float((max(xs)+min(xs)-plot_range))/2 -.5
+    xmax = xmin+plot_range+1.
+    ymin = float((max(ys)+min(ys)-plot_range))/2 -.5
+    ymax = ymin+plot_range+1.
+    zmin = float((max(zs)+min(zs)-plot_range))/2 -.5
+    zmax = zmin+plot_range+1.
+    
+    return[[xmin, xmax], [ymin, ymax], [zmin, zmax]]
