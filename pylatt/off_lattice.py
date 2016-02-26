@@ -41,17 +41,18 @@ def read_from_iterable(pdb):
     chains=[]
     for line in pdb:
         if line[0:6]=="ATOM  ":
-            atom_no = int(line[6:11])
+            #atom_no = int(line[6:11])
             atom_name = line[12:16]
-            alt_loc = line[16]
-            res_name = line[17:20]
+            #alt_loc = line[16]
+            #res_name = line[17:20]
             chain_id = line[21]
-            res_no = int(line[22:26])
-            icode = line[26]
+            #res_no = int(line[22:26])
+            #icode = line[26]
             x = float(line[30:38])
             y = float(line[38:46])
             z = float(line[46:54])
-            if line[13:15]=="CA":
+            # Take positions of residues from alpha carbon atoms
+            if atom_name == " CA ":
                 coords.append([x,y,z])
                 chains.append(chain_id)
     coords = np.array(coords)
@@ -90,6 +91,7 @@ def closest_move(move_list, target):
     return best
 
 def centre_of_mass(structure):
+    '''Find the centroid of an OffLatticeStructure.'''
     com = []
     for axis in range(0, 3):
         com.append(np.mean(structure.coords[:,axis]))
@@ -101,7 +103,3 @@ class OffLatticeStructure(object):
         self.natoms = len(coords)
         self.chainID = chainID
         self.termini = termini.find(chainID)
-                
-                
-                
-                
