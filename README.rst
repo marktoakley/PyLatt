@@ -3,7 +3,10 @@
 
 .. image:: https://coveralls.io/repos/github/marktoakley/PyLatt/badge.svg?branch=master
     :target: https://coveralls.io/github/marktoakley/PyLatt?branch=master
-
+    
+.. image:: https://landscape.io/github/marktoakley/PyLatt/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/marktoakley/PyLatt/master
+   :alt: Code Health
 
 PyLattice
 =========
